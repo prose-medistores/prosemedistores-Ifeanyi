@@ -1,23 +1,37 @@
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
+
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
+
+
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const user = JSON.parse(localStorage.getItem("user"));
-        if (!user?.email) {
+        const email = user?.email;
+        if (!email) {
           setOrders([]);
           setLoading(false);
           return;
         }
-        const res = await axios.get("http://localhost:5000/api/orders", {
-          params: { email: user.email },
+        const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
+          params: { email },
         });
-        setOrders(res.data);
+        // :white_check_mark: Fix: handle different backend response structures
+        const fetchedOrders = Array.isArray(res.data)
+          ? res.data
+          : res.data.orders || [];
+        setOrders(fetchedOrders);
       } catch (error) {
-        console.error(error);
+        console.error("Error fetching orders:", error);
+        setOrders([]); // fallback
       } finally {
         setLoading(false);
       }
@@ -31,7 +45,7 @@ export default function MyOrders() {
       </div>
     );
   }
-  if (orders.length === 0) {
+  if (!Array.isArray(orders) || orders.length === 0) {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center text-center p-6">
         <img
@@ -83,7 +97,7 @@ export default function MyOrders() {
                 </span>
               </div>
               <div className="border-t border-gray-100 pt-4">
-                {order.items.map((item, i) => (
+                {order.items?.map((item, i) => (
                   <div
                     key={i}
                     className="flex items-center justify-between mb-3 last:mb-0"
@@ -95,9 +109,7 @@ export default function MyOrders() {
                         className="w-12 h-12 object-cover rounded-lg border"
                       />
                       <div>
-                        <p className="font-medium text-gray-800">
-                          {item.name}
-                        </p>
+                        <p className="font-medium text-gray-800">{item.name}</p>
                         <p className="text-sm text-gray-500">
                           Qty: {item.quantity}
                         </p>
@@ -120,7 +132,38 @@ export default function MyOrders() {
             </div>
           ))}
         </div>
+
+           {/* ✅ Back to Orders Button */}
+      <button
+        onClick={() => navigate(-1)}
+        className="bg-primary text-white px-6 py-2.5 rounded-lg mt-3 font-medium hover:bg-primary/90 transition-all shadow-sm flex items-center gap-2"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-4 h-4"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
+          />
+        </svg>
+        Back to My Orders
+      </button>
+
       </div>
     </div>
   );
 }
+
+
+
+
+
+
+
+

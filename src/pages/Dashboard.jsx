@@ -32,7 +32,7 @@ export default function Dashboard() {
             <span className="font-bold text-primary">MS</span>
           </div>
           <h1 className="text-xl font-semibold text-primary hidden sm:block">
-            MediStore Dashboard
+            ProseMediStore Dashboard
           </h1>
         </div>
 
@@ -88,7 +88,7 @@ export default function Dashboard() {
               Chat directly with a licensed pharmacist or doctor for guidance.
             </p>
             <a
-              href="https://wa.me/2348162738527?text=Hello%20MediStore%20team!%20I%20need%20help%20with%20my%20order."
+              href="https://wa.me/2348162738527?text=Hello%20ProseMediStore%20team!%20I%20need%20help%20with%20my%20order."
               target="_blank"
               rel="noopener noreferrer"
               className="bg-green-500 text-white text-center w-full py-2 block rounded-lg hover:bg-green-600 transition"

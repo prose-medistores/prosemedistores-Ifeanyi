@@ -38,7 +38,11 @@ export default function AdminDashboard() {
   };
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/orders");
+      const res = await axios.get("http://localhost:5000/api/orders/all-orders", {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
+      });
       setOrders(res.data);
     } catch (err) {
       console.error(err);
@@ -80,8 +84,15 @@ export default function AdminDashboard() {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${id}`, {
-        deliveryStatus: status,
+      await axios.put(`http://localhost:5000/api/orders/${id}`, 
+        
+        {deliveryStatus: status}, 
+        
+        {
+        headers: {
+            "Authorization": `Bearer ${token}`,
+        },
+        
       });
       fetchOrders();
     } catch (err) {
@@ -104,7 +115,7 @@ export default function AdminDashboard() {
     <div className="min-h-screen bg-gray-50 pt-20">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 bg-white shadow z-50 h-16 flex items-center justify-between px-6">
-        <h1 className="text-xl font-bold text-primary">MediStore Admin</h1>
+        <h1 className="text-xl font-bold text-primary">ProseMediStore Admin</h1>
         <button
           onClick={() => {
             localStorage.clear();

@@ -118,7 +118,7 @@ export default function CartDrawer({ open, onClose }) {
 
                   <div className="mt-2 flex items-center gap-2">
                     <button
-                      onClick={() => updateQty(i.id, i.qty - 1)}
+                      onClick={() => updateQty(i._id, i.qty - 1)}
                       className="px-2 py-1 border rounded"
                       aria-label={`Decrease ${i.name} quantity`}
                     >
@@ -126,20 +126,20 @@ export default function CartDrawer({ open, onClose }) {
                     </button>
                     <input
                       value={i.qty}
-                      onChange={(e) => updateQty(i.id, Number(e.target.value || 1))}
+                      onChange={(e) => updateQty(i._id, Number(e.target.value || 1))}
                       className="w-12 text-center border rounded"
                       type="number"
                       min="1"
                       aria-label={`Quantity for ${i.name}`}
                     />
                     <button
-                      onClick={() => updateQty(i.id, i.qty + 1)}
+                      onClick={() => updateQty(i._id, i.qty + 1)}
                       className="px-2 py-1 border rounded"
                       aria-label={`Increase ${i.name} quantity`}
                     >
                       +
                     </button>
-                    <button onClick={() => remove(i.id)} className="ml-auto text-sm text-red-500">Remove</button>
+                    <button onClick={() => remove(i._id)} className="ml-auto text-sm text-red-500">Remove</button>
                   </div>
                 </div>
               </li>

@@ -37,7 +37,7 @@ export default function TrustedCareSection() {
           className="text-center mb-14"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-            Why Nigerians Trust <span className="text-primary">MediStore</span>
+            Why Nigerians Trust <span className="text-primary">ProseMediStore</span>
           </h2>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
             We go beyond selling medicines — we deliver care, convenience, and

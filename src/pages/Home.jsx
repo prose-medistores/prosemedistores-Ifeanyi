@@ -27,7 +27,7 @@ export default function Home() {
     };
     fetchProducts();
   }, []);
-  if (loading) return <p>Loading products...</p>;
+  // if (loading) return <p>Loading products...</p>;
 
   return (
     <>

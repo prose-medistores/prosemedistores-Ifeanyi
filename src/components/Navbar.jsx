@@ -31,10 +31,10 @@ export default function Navbar({ onCartOpen }) {
           {/* Logo */}
           <a href="#home" className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <span className="font-bold text-primary">MS</span>
+              <span className="font-bold text-primary">PMS</span>
             </div>
             <div className="hidden sm:block">
-              <h1 className="text-lg font-semibold text-primary leading-none">MediStore</h1>
+              <h1 className="text-lg font-semibold text-primary leading-none">ProseMediStore</h1>
               <p className="text-xs text-gray-500 -mt-0.5">Trusted online pharmacy</p>
             </div>
           </a>
@@ -167,3 +167,4 @@ export default function Navbar({ onCartOpen }) {
     </header>
   );
 }
+

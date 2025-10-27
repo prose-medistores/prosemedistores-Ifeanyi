@@ -6,7 +6,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-8">
         {/* Brand and Mission */}
         <div>
-          <h2 className="text-2xl font-bold">MediStore</h2>
+          <h2 className="text-2xl font-bold">ProseMediStore</h2>
           <p className="mt-2 text-sm text-gray-200">
             Delivering trusted medicines and healthcare essentials with care and convenience.
           </p>
@@ -40,12 +40,12 @@ export default function Footer() {
           </p>
           <p className="mt-2 text-sm">📞 <a href="tel:+2348012345678" className="hover:text-[#50D6FE] transition">+234 801 234 5678</a></p>
           <p className="mt-1 text-sm">💬 <a href="https://wa.me/2348012345678" className="hover:text-[#50D6FE] transition">Chat on WhatsApp</a></p>
-          <p className="mt-1 text-sm">📧 <a href="mailto:support@medistore.com" className="hover:text-[#50D6FE] transition">support@medistore.com</a></p>
+          <p className="mt-1 text-sm">📧 <a href="mailto:support@medistore.com" className="hover:text-[#50D6FE] transition">support@prosemedistore.com</a></p>
         </div>
       </div>
       {/* Bottom Bar */}
       <div className="border-t border-white/20 mt-8 py-4 text-center text-xs text-gray-300">
-        © {new Date().getFullYear()} MediStore All rights reserved.
+        © {new Date().getFullYear()} ProseMediStore All rights reserved.
       </div>
     </footer>
   );
