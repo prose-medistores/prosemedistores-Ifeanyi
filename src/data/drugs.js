@@ -1,0 +1,38 @@
+export const drugs = [
+  {
+    id: "p1",
+    name: "Paracetamol 500mg",
+    category: "Pain Relief",
+    price: 1200,
+    stock: 120,
+    image: "https://cdn-icons-png.flaticon.com/512/2965/2965567.png",
+    description: "Safe and effective pain relief.",
+  },
+  {
+    id: "p2",
+    name: "Amoxicillin 250mg",
+    category: "Antibiotics",
+    price: 2500,
+    stock: 40,
+    image: "https://cdn-icons-png.flaticon.com/512/4320/4320351.png",
+    description: "Broad spectrum antibiotic.",
+  },
+  {
+    id: "p3",
+    name: "Vitamin C Tablets",
+    category: "Supplements",
+    price: 1800,
+    stock: 200,
+    image: "https://cdn-icons-png.flaticon.com/512/4313/4313474.png",
+    description: "Immunity support.",
+  },
+  {
+    id: "p4",
+    name: "Ibuprofen 400mg",
+    category: "Pain Relief",
+    price: 1500,
+    stock: 80,
+    image: "https://cdn-icons-png.flaticon.com/512/4313/4313428.png",
+    description: "Anti-inflammatory pain relief.",
+  },
+];
