@@ -34,7 +34,9 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import MyOrders from "./pages/MyOrders";
 import AdminDashboard from "./pages/AdminDashboard";
+import PendingDeliveries from "./pages/PendingDeliveries";
 import { Toaster } from "react-hot-toast";
+import AboutUs from "./pages/AboutUs";
 
 export default function App() {
   return (
@@ -48,6 +50,8 @@ export default function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/orders" element={<MyOrders />} />
           <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/pending-deliveries" element={<PendingDeliveries />} />
+          <Route path="/about" element={<AboutUs />} />
         </Routes>
       </Router>
     </CartProvider>

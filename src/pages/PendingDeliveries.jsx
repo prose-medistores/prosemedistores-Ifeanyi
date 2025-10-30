@@ -1,16 +1,10 @@
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
-
-
-export default function MyOrders() {
+export default function PendingDeliveries() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-
-
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -24,14 +18,17 @@ export default function MyOrders() {
         const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
           params: { email },
         });
-        // ✅ Fix: handle different backend response structures
         const fetchedOrders = Array.isArray(res.data)
           ? res.data
           : res.data.orders || [];
-        setOrders(fetchedOrders);
+        // :white_check_mark: Filter out only pending (not delivered) orders
+        const pending = fetchedOrders.filter(
+          (order) => order.deliveryStatus !== "Delivered"
+        );
+        setOrders(pending);
       } catch (error) {
         console.error("Error fetching orders:", error);
-        setOrders([]); // fallback
+        setOrders([]);
       } finally {
         setLoading(false);
       }
@@ -41,7 +38,7 @@ export default function MyOrders() {
   if (loading) {
     return (
       <div className="min-h-screen flex justify-center items-center">
-        <p className="text-gray-600">Loading your orders...</p>
+        <p className="text-gray-600">Loading pending deliveries...</p>
       </div>
     );
   }
@@ -49,22 +46,22 @@ export default function MyOrders() {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center text-center p-6">
         <img
-          src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
-          alt="No Orders"
+          src="https://cdn-icons-png.flaticon.com/512/4772/4772310.png"
+          alt="All Delivered"
           className="w-32 h-32 mb-6 opacity-80"
         />
         <h2 className="text-xl font-semibold text-gray-700 mb-2">
-          No orders yet
+          No pending deliveries
         </h2>
         <p className="text-gray-500 mb-4">
-          You haven’t placed any orders yet. Start shopping now!
+          All your orders have been delivered successfully :tada:
         </p>
-        <a
-          href="/"
+        <button
+          onClick={() => navigate(-1)}
           className="bg-primary text-white px-5 py-2 rounded-lg hover:bg-primary/90 transition-all font-medium"
         >
-          Go to Shop
-        </a>
+          Back to Dashboard
+        </button>
       </div>
     );
   }
@@ -72,7 +69,7 @@ export default function MyOrders() {
     <div className="min-h-screen bg-light py-10 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <h1 className="text-2xl sm:text-3xl font-bold text-primary mb-8">
-          My Orders
+          Pending Deliveries
         </h1>
         <div className="grid gap-6">
           {orders.map((order) => (
@@ -90,7 +87,7 @@ export default function MyOrders() {
                       ? "bg-green-100 text-green-700"
                       : order.deliveryStatus === "Processing"
                       ? "bg-yellow-100 text-yellow-700"
-                      : "bg-gray-100 text-gray-700"
+                      : "bg-blue-100 text-blue-700"
                   }`}
                 >
                   {order.deliveryStatus}
@@ -116,7 +113,7 @@ export default function MyOrders() {
                       </div>
                     </div>
                     <p className="font-semibold text-gray-700">
-                      ₦{item.price.toLocaleString()}
+                      ₦{Number(item.price || 0).toLocaleString()}
                     </p>
                   </div>
                 ))}
@@ -126,44 +123,34 @@ export default function MyOrders() {
                   <strong>Address:</strong> {order.deliveryAddress}
                 </p>
                 <p className="font-semibold text-gray-800">
-                  Total: ₦{order.totalAmount.toLocaleString()}
+                  Total: ₦{Number(order.totalAmount || 0).toLocaleString()}
                 </p>
               </div>
             </div>
           ))}
         </div>
-
-           {/* ✅ Back to Orders Button */}
-      <button
-        onClick={() => navigate(-1)}
-        className="bg-primary text-white px-6 py-2.5 rounded-lg mt-3 font-medium hover:bg-primary/90 transition-all shadow-sm flex items-center gap-2"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-4 h-4"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
+        {/* Back Button */}
+        <button
+          onClick={() => navigate(-1)}
+          className="bg-primary text-white px-6 py-2.5 rounded-lg mt-6 font-medium hover:bg-primary/90 transition-all shadow-sm flex items-center gap-2"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M15 19l-7-7 7-7"
-          />
-        </svg>
-        Back to My Orders
-      </button>
-
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="w-4 h-4"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M15 19l-7-7 7-7"
+            />
+          </svg>
+          Back
+        </button>
       </div>
     </div>
   );
 }
-
-
-
-
-
-
-
-

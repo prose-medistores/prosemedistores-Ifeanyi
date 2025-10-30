@@ -10,6 +10,7 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [products, setProducts] = useState([]);
   const [orders, setOrders] = useState([]);
+  const [prescriptions, setPrescriptions] = useState([]);
   const [newProduct, setNewProduct] = useState({
     name: "",
     price: "",
@@ -24,10 +25,39 @@ export default function AdminDashboard() {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    const fetchPrescriptions = async () => {
+      try {
+        const token = localStorage.getItem("token");
+        console.log("Token ",token);
+        
+        const res = await axios.get(`http://localhost:5000/api/prescriptions/all`, {
+            headers: {
+                "Authorization": `Bearer ${token}`,
+            }
+        });
+        console.log(res);
+        
+        if (Array.isArray(res.data)) {
+          setPrescriptions(res.data);
+        } else {
+          setPrescriptions([]);
+        }
+      } catch (error) {
+        console.error("Error fetching prescriptions:", error);
+        setPrescriptions([]);
+      }
+    };
+    if (activeTab === "prescriptions") {
+      fetchPrescriptions();
+    }
+  }, [activeTab]);
   useEffect(() => {
     fetchProducts();
     fetchOrders();
   }, []);
+
   const fetchProducts = async () => {
     try {
       const res = await axios.get("http://localhost:5000/api/products");
@@ -36,18 +66,25 @@ export default function AdminDashboard() {
       console.error(err);
     }
   };
+  console.log("Token ", token);
+  
   const fetchOrders = async () => {
-    try {
-      const res = await axios.get("http://localhost:5000/api/orders/all-orders", {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-        },
-      });
-      setOrders(res.data);
-    } catch (err) {
-      console.error(err);
+  try {
+    const token = localStorage.getItem("token"); // :white_check_mark: always fetch fresh token
+    if (!token) {
+      console.warn("No token found, please log in again");
+      return;
     }
-  };
+    const res = await axios.get("http://localhost:5000/api/orders/all-orders", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    setOrders(res.data);
+  } catch (err) {
+    console.error("Failed to fetch orders:", err.response?.data || err.message);
+  }
+};
 
   const handleAddProduct = async (e) => {
   e.preventDefault();
@@ -111,6 +148,35 @@ export default function AdminDashboard() {
       alert("Error creating admin");
     }
   };
+
+
+  const handleDelete = async (id) => {
+  const confirmDelete = window.confirm("Are you sure you want to delete this product?");
+  if (!confirmDelete) return;
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      toast.error("Unauthorized: Only admin can delete products");
+      return;
+    }
+    await axios.delete(`http://localhost:5000/api/products/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    toast.success("✅ Product deleted successfully");
+    // Optionally refresh product list
+    fetchProducts(); // <-- Call your function that reloads products
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    if (error.response?.status === 403) {
+      toast.error("Access denied: Admins only");
+    } else {
+      toast.error("Failed to delete product. Please try again.");
+    }
+  }
+}
+
   return (
     <div className="min-h-screen bg-gray-50 pt-20">
       {/* Header */}
@@ -130,7 +196,7 @@ export default function AdminDashboard() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* Tabs */}
         <div className="flex flex-wrap gap-4 mb-8">
-          {["overview", "products", "orders", "admins"].map((tab) => (
+          {["overview", "products", "orders", "admins", "prescriptions"].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -163,6 +229,7 @@ export default function AdminDashboard() {
             </div>
           </div>
         )}
+
         {/* Add Products */}
         {activeTab === "products" && (
           <div className="space-y-10">
@@ -241,12 +308,60 @@ export default function AdminDashboard() {
                       <p className="text-primary font-medium mt-2">
                         ₦{p.price.toLocaleString()}
                       </p>
+
+                      <button
+                        onClick={() => handleDelete(p._id)}
+                        className="mt-4 bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700 transition-all w-full"
+                    >
+                        Delete
+                    </button>
                     </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
+        )}
+
+        {/* Prescriptions */}
+        {activeTab === "prescriptions" && (
+        <div className="bg-white p-6 rounded-xl shadow">
+            <h2 className="text-xl font-semibold text-gray-800 mb-4">
+            Uploaded Prescriptions
+            </h2>
+            {prescriptions.length === 0 ? (
+            <p className="text-gray-500 text-center py-10">
+                No prescriptions uploaded yet.
+            </p>
+            ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {prescriptions.map((prescription) => (
+                <div
+                    key={prescription._id}
+                    className="border rounded-xl overflow-hidden shadow-sm hover:shadow-md transition"
+                >
+                    <img
+                    src={prescription.imageUrl}
+                    alt="Prescription"
+                    className="w-full h-56 object-cover"
+                    />
+                    <div className="p-4">
+                    <h3 className="font-semibold text-gray-800 mb-1">
+                        {prescription.user?.name || "Unknown User"}
+                    </h3>
+                    <p className="text-sm text-gray-500">
+                        {prescription.userEmail}
+                    </p>
+                    <p className="text-xs text-gray-400 mt-2">
+                        Uploaded on{" "}
+                        {new Date(prescription.createdAt).toLocaleDateString()}
+                    </p>
+                    </div>
+                </div>
+                ))}
+            </div>
+            )}
+        </div>
         )}
         {/* Orders */}
         {activeTab === "orders" && (

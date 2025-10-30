@@ -55,7 +55,7 @@ export default function Register() {
           Create Account
         </h2>
         <p className="text-center text-gray-500 mb-8">
-          Join <span className="font-semibold text-primary">MediStore</span> to get your medicines easily
+          Join <span className="font-semibold text-primary">ProseMediStore</span> to get your medicines easily
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

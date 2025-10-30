@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 
 export default function Login() {
@@ -14,38 +15,7 @@ export default function Login() {
     console.log("Login submitted:", { email, password });
   };
 
-//   const handleLogin = async (e) => {
-//   e.preventDefault();
 
-//   try {
-//     const res = await fetch("http://localhost:5000/api/auth/login", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: JSON.stringify({
-//         email,
-//         password,
-//       }),
-//     });
-
-//     const data = await res.json();
-
-//     if (!res.ok) {
-//       alert(data.message || "Login failed");
-//       return;
-//     }
-
-//     // Save token and user info
-//     localStorage.setItem("token", data.token);
-//     localStorage.setItem("user", JSON.stringify(data));
-
-//     alert("Login successful!");
-//     navigate("/dashboard")
-//     // window.location.href = "/"; // or dashboard
-//   } catch (error) {
-//     console.error(error);
-//     alert("Something went wrong, please try again.");
-//   }
-// };
 const handleLogin = async (e) => {
   e.preventDefault();
   try {
@@ -65,13 +35,13 @@ const handleLogin = async (e) => {
     // Save token and user info
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data));
-    alert("Login successful!");
     // Role-based redirection
     if (data.role === "admin") {
       navigate("/admin");
     } else {
       navigate("/dashboard");
     }
+    toast.success("Login successful!");
   } catch (error) {
     console.error(error);
     alert("Something went wrong, please try again.");
@@ -86,7 +56,7 @@ const handleLogin = async (e) => {
           Welcome Back
         </h2>
         <p className="text-center text-gray-500 mb-8">
-          Sign in to continue shopping with <span className="font-semibold text-primary">MediStore</span>
+          Sign in to continue shopping with <span className="font-semibold text-primary">ProseMediStore</span>
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">

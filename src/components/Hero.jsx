@@ -63,7 +63,7 @@ export default function Hero() {
               Shop Medicines
             </a>
             <a
-              href="#chat"
+              href="/register"
               className="inline-flex items-center justify-center px-5 py-3 border border-primary rounded-lg font-medium text-primary hover:bg-primary hover:text-white transition"
             >
               Consult a Pharmacist

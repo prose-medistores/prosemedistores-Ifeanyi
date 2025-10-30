@@ -13,12 +13,12 @@ export default function TrustedCareSection() {
     },
     {
       title: "Authentic Medicines",
-      desc: "We source only from NAFDAC-approved suppliers, guaranteeing every drug is original and effective — no counterfeits, ever.",
+      desc: "We source only from NAFDAC-approved suppliers, guaranteeing every drug is original and effective, no counterfeits, ever.",
       icon: "https://cdn-icons-png.flaticon.com/512/3103/3103446.png",
     },
     {
       title: "Fast Delivery Nationwide",
-      desc: "Order from anywhere in Nigeria — our express logistics partners deliver right to your doorstep, often the same day.",
+      desc: "Order from anywhere in Nigeria, our express logistics partners deliver right to your doorstep, often the same day.",
       icon: "https://cdn-icons-png.flaticon.com/512/854/854878.png",
     },
     {
@@ -40,7 +40,7 @@ export default function TrustedCareSection() {
             Why Nigerians Trust <span className="text-primary">ProseMediStore</span>
           </h2>
           <p className="mt-3 text-gray-600 max-w-2xl mx-auto">
-            We go beyond selling medicines — we deliver care, convenience, and
+            We go beyond selling medicines, we deliver care, convenience, and
             confidence in every order.
           </p>
         </motion.div>
