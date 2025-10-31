@@ -101,22 +101,22 @@ export default function Hero() {
                 {
                   name: "Paracetamol 500mg",
                   desc: "Pain relief",
-                  img: "https://cdn-icons-png.flaticon.com/512/2965/2965567.png",
+                  img: "/parahero.jpg",
                 },
                 {
                   name: "Amoxicillin 250mg",
                   desc: "Antibiotic",
-                  img: "https://cdn-icons-png.flaticon.com/512/4320/4320351.png",
+                  img: "/amoxhero.jpg",
                 },
                 {
                   name: "Vitamin C",
                   desc: "Supplement",
-                  img: "https://cdn-icons-png.flaticon.com/512/4313/4313474.png",
+                  img: "/vitaminc.jpg",
                 },
                 {
                   name: "Ibuprofen 400mg",
                   desc: "Anti-inflammatory",
-                  img: "https://cdn-icons-png.flaticon.com/512/4313/4313428.png",
+                  img: "/ibup.jpg",
                 },
               ].map((item, idx) => (
                 <motion.div

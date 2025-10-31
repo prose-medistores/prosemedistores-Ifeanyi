@@ -9,22 +9,22 @@ export default function TrustedCareSection() {
     {
       title: "Certified Pharmacists",
       desc: "Our team consists of verified, licensed pharmacists dedicated to ensuring you receive the safest and most effective medications.",
-      icon: "https://cdn-icons-png.flaticon.com/512/2920/2920244.png",
+      icon: "/pharmm.png",
     },
     {
       title: "Authentic Medicines",
       desc: "We source only from NAFDAC-approved suppliers, guaranteeing every drug is original and effective, no counterfeits, ever.",
-      icon: "https://cdn-icons-png.flaticon.com/512/3103/3103446.png",
+      icon: "/amox.png",
     },
     {
       title: "Fast Delivery Nationwide",
       desc: "Order from anywhere in Nigeria, our express logistics partners deliver right to your doorstep, often the same day.",
-      icon: "https://cdn-icons-png.flaticon.com/512/854/854878.png",
+      icon: "/del.png",
     },
     {
       title: "Affordable Healthcare",
       desc: "We believe quality healthcare should be accessible to all. Enjoy fair prices and periodic discounts on trusted brands.",
-      icon: "https://cdn-icons-png.flaticon.com/512/2164/2164832.png",
+      icon: "/htt.png",
     },
   ];
   return (
