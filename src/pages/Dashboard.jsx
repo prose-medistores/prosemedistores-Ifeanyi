@@ -1,23 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import ChatBox from "../components/ChatBox";
+import axios from "axios";
 
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
 
+  // useEffect(() => {
+  //   const storedUser = JSON.parse(localStorage.getItem("user"));
+  //   const token = localStorage.getItem("token");
+
+  //   if (!storedUser || !token) {
+  //     navigate("/login");
+  //     return;
+  //   }
+
+  //   setUser(storedUser);
+  // }, [navigate]);
   useEffect(() => {
-    const storedUser = JSON.parse(localStorage.getItem("user"));
-    const token = localStorage.getItem("token");
-
-    if (!storedUser || !token) {
-      navigate("/login");
-      return;
-    }
-
+  const token = localStorage.getItem("token");
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+  // If nothing is stored, just stop — no redirect
+  if (!token || !storedUser) return;
+  // Only set user if not admin
+  if (storedUser.role !== "admin") {
     setUser(storedUser);
-  }, [navigate]);
+  }
+}, []);
+  
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -58,7 +73,33 @@ export default function Dashboard() {
   };
 
 
-
+useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const user = JSON.parse(localStorage.getItem("user"));
+        const email = user?.email;
+        if (!email) {
+          setOrders([]);
+          setLoading(false);
+          return;
+        }
+        const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
+          params: { email },
+        });
+        // ✅ Fix: handle different backend response structures
+        const fetchedOrders = Array.isArray(res.data)
+          ? res.data
+          : res.data.orders || [];
+        setOrders(fetchedOrders);
+      } catch (error) {
+        console.error("Error fetching orders:", error);
+        setOrders([]); // fallback
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOrders();
+  }, []);
 
 
   return (
@@ -188,24 +229,38 @@ export default function Dashboard() {
           <h2 className="text-xl font-semibold text-gray-800 mb-6">
             Recent Activity
           </h2>
-
           <div className="bg-white p-6 rounded-2xl shadow-soft">
-            <ul className="divide-y divide-gray-100">
-              <li className="py-3 flex justify-between items-center">
-                <span className="text-gray-700">Paracetamol 500mg</span>
-                <span className="text-sm text-gray-500">Delivered</span>
-              </li>
-              <li className="py-3 flex justify-between items-center">
-                <span className="text-gray-700">Vitamin C Tablets</span>
-                <span className="text-sm text-gray-500">Pending</span>
-              </li>
-              <li className="py-3 flex justify-between items-center">
-                <span className="text-gray-700">Ibuprofen 200mg</span>
-                <span className="text-sm text-gray-500">Processing</span>
-              </li>
-            </ul>
+            {loading ? (
+              <p className="text-gray-500 text-sm">Loading recent activities...</p>
+            ) : orders.length === 0 ? (
+              <p className="text-gray-500 text-sm">No recent activities found.</p>
+            ) : (
+              <ul className="divide-y divide-gray-100">
+                {orders.slice(0, 5).map((order, index) => (
+                  <li key={index} className="py-3 flex justify-between items-center">
+                    <span className="text-gray-700 font-medium">
+                      {order.items && order.items.length > 0
+                        ? order.items.map((item) => item.name).join(", ")
+                        : "Order"}
+                    </span>
+                    <span
+                      className={`text-sm ${
+                        order.deliveryStatus === "Delivered"
+                          ? "text-green-600"
+                          : order.deliveryStatus === "Pending"
+                          ? "text-yellow-600"
+                          : "text-blue-600"
+                      }`}
+                    >
+                      {order.deliveryStatus || "Processing"}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
           </div>
         </section>
+        <ChatBox label="Talk to a pharmacist"/>
       </main>
     </div>
   );

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {toast} from "react-hot-toast"
+import ChatBox from "../components/ChatBox";
 
 
 
@@ -18,6 +19,11 @@ export default function AdminDashboard() {
     image: "",
   });
   const [loading, setLoading] = useState(false);
+  
+  const patients = [
+    { _id: "672e4b1b73d2a100156accc1", name: "John Doe", email: "john@example.com" },
+    { _id: "672e4b1b73d2a100156accc2", name: "Mary Jane", email: "mary@example.com" },
+  ];
 
   const token = localStorage.getItem("token");
   
@@ -456,7 +462,14 @@ export default function AdminDashboard() {
             </form>
           </div>
         )}
+        
       </div>
+      <ChatBox
+          label="Talk to a patient"
+          isAdmin={true}
+          conversationIdProp="68ff7334a8c2c6cdd25574d0" // ✅ this fixes the undefined issue
+        />
     </div>
+    
   );
 }

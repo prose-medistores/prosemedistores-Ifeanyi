@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -33,8 +34,9 @@ export default function Register() {
       localStorage.setItem("token", data.token);
       localStorage.setItem("user", JSON.stringify(data));
 
-      alert("Registration successful!");
+      
       navigate("/dashboard");
+      toast.success("Registration successful!");
     //   window.location.href = "/"; 
     } catch (error) {
       console.error(error);
