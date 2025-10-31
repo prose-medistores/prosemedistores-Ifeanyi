@@ -201,7 +201,7 @@ export default function Navbar({ onCartOpen }) {
           <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
             <span className="font-bold text-primary text-lg">PMS</span>
           </div>
-          <div className="hidden sm:block">
+          <div className="block">
             <h1 className="text-lg font-semibold text-primary leading-none">
               ProseMediStore
             </h1>
@@ -269,6 +269,7 @@ export default function Navbar({ onCartOpen }) {
             <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
               <span className="font-bold text-primary text-lg">PMS</span>
             </div>
+
             <h1 className="font-semibold text-primary text-lg">Menu</h1>
           </div>
           <button
