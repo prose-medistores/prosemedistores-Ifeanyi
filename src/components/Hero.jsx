@@ -60,7 +60,7 @@ export default function Hero() {
               href="#shop"
               className="inline-flex items-center justify-center px-5 py-3 bg-primary text-white rounded-lg font-medium shadow hover:shadow-md transition"
             >
-              Shop Medicines ifeanyi
+              Shop Medicines 
             </a>
             <a
               href="/register"
