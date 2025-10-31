@@ -35,6 +35,11 @@ const handleLogin = async (e) => {
     // Save token and user info
     localStorage.setItem("token", data.token);
     localStorage.setItem("user", JSON.stringify(data));
+
+    if(data.email){
+      localStorage.setItem(`socket_token_${data.email}`, data.token);
+    }
+
     // Role-based redirection
     if (data.role === "admin") {
       navigate("/admin");

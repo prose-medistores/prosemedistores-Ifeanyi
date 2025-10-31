@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {toast} from "react-hot-toast"
 import ChatBox from "../components/ChatBox";
+import { motion } from "framer-motion";
 
 
 
@@ -20,10 +21,27 @@ export default function AdminDashboard() {
   });
   const [loading, setLoading] = useState(false);
   
-  const patients = [
-    { _id: "672e4b1b73d2a100156accc1", name: "John Doe", email: "john@example.com" },
-    { _id: "672e4b1b73d2a100156accc2", name: "Mary Jane", email: "mary@example.com" },
-  ];
+  const [users, setUsers] = useState([]);
+  const [selectedUserId, setSelectedUserId] = useState(null);
+  const [chatloading, setChatLoading] = useState(true);
+  // Fetch all users (patients)
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/users", {
+            headers: {
+                "Authorization": `Bearer ${localStorage.getItem("token")}`,
+            }
+        });
+        setUsers(res.data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      } finally {
+        setChatLoading(false);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const token = localStorage.getItem("token");
   
@@ -464,11 +482,96 @@ export default function AdminDashboard() {
         )}
         
       </div>
-      <ChatBox
+
+
+      {/* <ChatBox
           label="Talk to a patient"
           isAdmin={true}
           conversationIdProp="68ff7334a8c2c6cdd25574d0" // ✅ this fixes the undefined issue
-        />
+        /> */}
+
+        <div className="min-h-screen bg-gray-50 px-4 sm:px-6 py-6">
+      <motion.div
+        className="max-w-3xl mx-auto bg-white rounded-2xl shadow-lg p-6 border border-gray-100"
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="mb-6">
+          <h2 className="text-2xl font-semibold text-gray-800 mb-2">
+            Admin Chat Dashboard 💬
+          </h2>
+          <p className="text-gray-500 text-sm">
+            Select a patient below to start a conversation with them in real time.
+          </p>
+        </div>
+        {chatloading ? (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-[#0046A5]" />
+            <span className="ml-3 text-gray-600">Loading users...</span>
+          </div>
+        ) : (
+          <div className="mb-6">
+            <label
+              htmlFor="userSelect"
+              className="block text-sm font-medium text-gray-700 mb-2"
+            >
+              Select a user to chat with
+            </label>
+            <div className="relative">
+              <select
+                id="userSelect"
+                onChange={(e) => setSelectedUserId(e.target.value)}
+                value={selectedUserId || ""}
+                className="block w-full appearance-none border border-gray-300 rounded-xl px-4 py-2 pr-10 text-gray-800 focus:outline-none focus:ring-2 focus:ring-[#0046A5] focus:border-[#0046A5] transition"
+              >
+                <option value="">-- Choose a user --</option>
+                {users.map((user) => (
+                  <option key={user._id} value={user._id}>
+                    {user.name} ({user.email})
+                  </option>
+                ))}
+              </select>
+              <svg
+                className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none"
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+          </div>
+        )}
+        {selectedUserId ? (
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ChatBox
+              label="Talk to a patient"
+              isAdmin={true}
+              conversationIdProp={selectedUserId}
+            />
+          </motion.div>
+        ) : (
+          <div className="text-center py-10 text-gray-500 border-t border-gray-100">
+            <p className="text-sm">Select a user to start chatting 👇</p>
+          </div>
+        )}
+      </motion.div>
+    </div>
+
+
+
+
     </div>
     
   );

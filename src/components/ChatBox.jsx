@@ -17,53 +17,66 @@ export default function ChatBox({ label = "Talk to a pharmacist", conversationId
   const user = JSON.parse(localStorage.getItem("user") || "null");
   const conversationId = conversationIdProp || (user && user._id);
   useEffect(() => {
-    if (!token || !conversationId) return;
-    // Connect with token in auth
-    const socket = io("http://localhost:5000", {
-      auth: {
-        token,
-      },
-      transports: ["websocket", "polling"],
-      reconnectionAttempts: 5,
-      reconnectionDelay: 1000,
-    });
-    socketRef.current = socket;
-    socket.on("connect", () => {
-      setIsConnected(true);
-      // Fetch unread counts or other startup tasks
-      socket.emit("get_unread_count");
-    });
-    socket.on("disconnect", () => setIsConnected(false));
-    socket.on("message", (msg) => {
-      // Only add if message belongs to this conversation
-      if (msg.conversationId === conversationId) {
-        setMessages((s) => [...s, msg]);
-        // auto mark read if message.to === current user
-        if (msg.to && user && msg.to === user._id) {
-          socket.emit("mark_read", { conversationId });
-        }
+  if (!token || !conversationId) return;
+  
+  const user = JSON.parse(localStorage.getItem("user"));
+  const socketToken = user?.email && localStorage.getItem(`socket_token_${user.email}`);
+
+  const socket = io("http://localhost:5000", {
+    auth: { token: socketToken || localStorage.getItem("token") },
+    transports: ["websocket", "polling"],
+    reconnectionAttempts: 10, // increased for stability
+    reconnectionDelay: 1000,
+  });
+  socketRef.current = socket;
+  socket.on("connect", () => {
+    setIsConnected(true);
+    socket.emit("get_unread_count");
+  });
+  socket.on("disconnect", (reason) => {
+    setIsConnected(false);
+    console.log(":red_circle: Socket disconnected:", reason);
+  });
+  // :white_check_mark: NEW: before each reconnection attempt, always reattach a fresh token
+  socket.io.on("reconnect_attempt", (attempt) => {
+    const latestToken = localStorage.getItem("token");
+    socket.auth = { token: latestToken };
+    console.log(`:repeat: Reconnect attempt #${attempt} with updated token`);
+  });
+  // :white_check_mark: NEW: handle auth errors gracefully (if backend sends one)
+  socket.on("auth_error", (data) => {
+    console.warn("Socket auth error:", data.message);
+    // You can choose to refresh token or show a toast instead of logging out user
+  });
+  socket.on("message", (msg) => {
+    if (msg.conversationId === conversationId) {
+      setMessages((s) => [...s, msg]);
+      if (msg.to && user && msg.to === user._id) {
+        socket.emit("mark_read", { conversationId });
       }
-    });
-    socket.on("typing", ({ userId, isTyping }) => {
-      setTypingFrom(isTyping ? userId : null);
-    });
-    socket.on("new_user_message", (data) => {
-      // Admin only: optionally refresh conversation list or show notification
-      if (isAdmin) {
-        // you can show toast or refresh conversations list
-        console.log("Admin notification: new message", data);
-      }
-    });
-    socket.on("error_message", (payload) => {
-      console.error("Socket error:", payload);
-    });
-    // cleanup
-    return () => {
-      socket.disconnect();
-      socketRef.current = null;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, conversationId]);
+    }
+  });
+  socket.on("typing", ({ userId, isTyping }) => {
+    setTypingFrom(isTyping ? userId : null);
+  });
+  socket.on("new_user_message", (data) => {
+    if (isAdmin) {
+      console.log("Admin notification: new message", data);
+      // Optionally show toast or refresh list
+    }
+  });
+  socket.on("error_message", (payload) => {
+    console.error("Socket error:", payload);
+  });
+  // Cleanup
+  return () => {
+    socket.disconnect();
+    socketRef.current = null;
+  };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, [token, conversationId]);
+
+
   // fetch history when chat opens
   useEffect(() => {
     if (!isOpen || !conversationId) return;
@@ -88,7 +101,7 @@ export default function ChatBox({ label = "Talk to a pharmacist", conversationId
     setSubmitting(true);
     const payload = {
       conversationId,
-      toUserId: null, // system: admin listeners; if replying admin, pass userId
+      toUserId: isAdmin? conversationId: null, // system: admin listeners; if replying admin, pass userId
       text: text.trim(),
     };
     // Emit via socket
