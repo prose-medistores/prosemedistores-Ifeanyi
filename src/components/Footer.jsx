@@ -36,7 +36,7 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact</h3>
           <p className="text-sm text-gray-200">
-            📍 <span className="text-gray-100">Low cost Avenue, Abakaliki, Imo State</span>
+            📍 <span className="text-gray-100">Low cost Avenue, Abakaliki, Ebonyi State</span>
           </p>
           <p className="mt-2 text-sm">📞 <a href="tel:+2348065503154" className="hover:text-[#50D6FE] transition">+234 806 550 3154</a></p>
           <p className="mt-1 text-sm">💬 <a href="https://wa.me/2348065503154" className="hover:text-[#50D6FE] transition">Chat on WhatsApp</a></p>
