@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
+
+const API = "https://medistore-backend.onrender.com"
+
 export default function PendingDeliveries() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -15,7 +19,7 @@ export default function PendingDeliveries() {
           setLoading(false);
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
+        const res = await axios.get(`${API}/api/orders/${email}`, {
           params: { email },
         });
         const fetchedOrders = Array.isArray(res.data)

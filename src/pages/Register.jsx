@@ -5,6 +5,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { Eye, EyeOff } from "lucide-react"
 
+const API = "https://medistore-backend.onrender.com"
+
 export default function Register() {
   const [formData, setFormData] = useState({
     name: "",
@@ -25,7 +27,7 @@ export default function Register() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/register", {
+      const res = await axios.post(`${API}/api/auth/register`, {
         name,
         email,
         password,

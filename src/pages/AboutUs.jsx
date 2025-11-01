@@ -76,7 +76,7 @@ export default function AboutUs() {
           <motion.div initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ duration: 0.5 }}>
             <h2 className="text-2xl font-bold text-gray-800">Our Mission</h2>
             <p className="mt-3 text-gray-600 max-w-3xl">
-              To combine technology, clinical expertise and reliable supply-chain practices to deliver genuine medicines and expert guidance to users — anywhere in the country.
+              To combine technology, clinical expertise and reliable supply-chain practices to deliver genuine medicines and expert guidance to users anywhere in the country.
               We aim to reduce the friction of getting medicine by making ordering, consultation, and delivery seamless and secure.
             </p>
           </motion.div>
@@ -133,7 +133,7 @@ export default function AboutUs() {
             </div>
             <div className="mt-6">
               <h5 className="text-sm text-gray-500">Headquarters</h5>
-              <p className="text-sm text-gray-700 mt-1">Abakaliki, Imo state, Nigeria</p>
+              <p className="text-sm text-gray-700 mt-1">Abakaliki, Ebonyi state, Nigeria</p>
             </div>
           </aside>
         </section>

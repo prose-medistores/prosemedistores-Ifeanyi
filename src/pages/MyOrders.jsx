@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
+const API = "https://medistore-backend.onrender.com"
 
 export default function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -21,7 +21,7 @@ export default function MyOrders() {
           setLoading(false);
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
+        const res = await axios.get(`${API}/api/orders/${email}`, {
           params: { email },
         });
         // ✅ Fix: handle different backend response structures

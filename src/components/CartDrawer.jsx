@@ -7,7 +7,9 @@ function formatCurrency(v) {
 }
 
 /* Replace this with your store WhatsApp number in international format (no +) */
-const STORE_WHATSAPP_NUMBER = "2348012345678";
+const STORE_WHATSAPP_NUMBER = "2348065503154";
+
+const API = "https://medistore-backend.onrender.com"
 
 export default function CartDrawer({ open, onClose }) {
   const { items, updateQty, remove, clear, total } = useCart();
@@ -50,7 +52,7 @@ export default function CartDrawer({ open, onClose }) {
       totalAmount: total,
     };
     // Send to backend
-    const res = await axios.post("http://localhost:5000/api/orders/checkout", orderData);
+    const res = await axios.post(`${API}/api/orders/checkout`, orderData);
     if (res.data.success) {
       // Now proceed to WhatsApp after order is saved
       const lines = [

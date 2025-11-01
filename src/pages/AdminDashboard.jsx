@@ -5,6 +5,7 @@ import {toast} from "react-hot-toast"
 import ChatBox from "../components/ChatBox";
 import { motion } from "framer-motion";
 
+const API = "https://medistore-backend.onrender.com"
 
 
 export default function AdminDashboard() {
@@ -28,7 +29,7 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/users", {
+        const res = await axios.get(`${API}/api/users`, {
             headers: {
                 "Authorization": `Bearer ${localStorage.getItem("token")}`,
             }
@@ -56,7 +57,7 @@ export default function AdminDashboard() {
         const token = localStorage.getItem("token");
         console.log("Token ",token);
         
-        const res = await axios.get(`http://localhost:5000/api/prescriptions/all`, {
+        const res = await axios.get(`${API}/api/prescriptions/all`, {
             headers: {
                 "Authorization": `Bearer ${token}`,
             }
@@ -84,7 +85,7 @@ export default function AdminDashboard() {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/products");
+      const res = await axios.get(`${API}/api/products`);
       setProducts(res.data);
     } catch (err) {
       console.error(err);
@@ -99,7 +100,7 @@ export default function AdminDashboard() {
       console.warn("No token found, please log in again");
       return;
     }
-    const res = await axios.get("http://localhost:5000/api/orders/all-orders", {
+    const res = await axios.get(`${API}/api/orders/all-orders`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -126,7 +127,7 @@ export default function AdminDashboard() {
         return;
     }
     
-    await axios.post("http://localhost:5000/api/products/", formData, {
+    await axios.post(`${API}/api/products/`, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
         "Authorization": `Bearer ${token}`,
@@ -145,7 +146,7 @@ export default function AdminDashboard() {
 
   const handleUpdateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/orders/${id}`, 
+      await axios.put(`${API}/api/orders/${id}`, 
         
         {deliveryStatus: status}, 
         
@@ -164,7 +165,7 @@ export default function AdminDashboard() {
   const handleAddAdmin = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/admins", newAdmin);
+      await axios.post(`${API}/api/admins`, newAdmin);
       alert("New admin created successfully!");
       setNewAdmin({ email: "", password: "" });
     } catch (err) {
@@ -183,7 +184,7 @@ export default function AdminDashboard() {
       toast.error("Unauthorized: Only admin can delete products");
       return;
     }
-    await axios.delete(`http://localhost:5000/api/products/${id}`, {
+    await axios.delete(`${API}/api/products/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

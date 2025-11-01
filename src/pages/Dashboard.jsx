@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import ChatBox from "../components/ChatBox";
 import axios from "axios";
 
+const API = "https://medistore-backend.onrender.com"
+
 export default function Dashboard() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
@@ -49,7 +51,7 @@ export default function Dashboard() {
     try {
       const user = JSON.parse(localStorage.getItem("user"));
       const email = user?.email;
-      const res = await fetch(`http://localhost:5000/api/prescriptions/upload?email=${email}`, {
+      const res = await fetch(`${API}/api/prescriptions/upload?email=${email}`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -83,7 +85,7 @@ useEffect(() => {
           setLoading(false);
           return;
         }
-        const res = await axios.get(`http://localhost:5000/api/orders/${email}`, {
+        const res = await axios.get(`${API}/api/orders/${email}`, {
           params: { email },
         });
         // ✅ Fix: handle different backend response structures
@@ -260,7 +262,7 @@ useEffect(() => {
             )}
           </div>
         </section>
-        <ChatBox label="Talk to a pharmacist"/>
+        <ChatBox label="Talk to a Doctor"/>
       </main>
     </div>
   );
