@@ -118,7 +118,7 @@ useEffect(() => {
         </div>
 
         <div className="flex items-center gap-4">
-          <span className="text-gray-700 text-sm hidden sm:block">
+          <span className="text-gray-700 text-sm">
             Hello, <span className="font-medium">{user?.name || "User"}</span>
           </span>
           <button
