@@ -4,7 +4,7 @@ import axios from "axios";
 
 
 
-export default function ChatBox({ label = "Talk to a pharmacist", conversationIdProp = null, isAdmin = false }) {
+export default function ChatBox({ label = "Talk to a doctor", conversationIdProp = null, isAdmin = false }) {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [isConnected, setIsConnected] = useState(false);
@@ -129,7 +129,7 @@ export default function ChatBox({ label = "Talk to a pharmacist", conversationId
           <div className="mt-3 bg-white w-80 sm:w-96 rounded-xl shadow-xl border overflow-hidden">
             <div className="px-4 py-3 border-b flex items-center justify-between">
               <div>
-                <div className="text-sm font-medium text-gray-800">{isAdmin ? "Patients" : "Pharmacist"}</div>
+                <div className="text-sm font-medium text-gray-800">{isAdmin ? "Patients" : "Doctor"}</div>
                 <div className="text-xs text-gray-500">{isConnected ? "Online 🟢": "Connecting..."}</div>
               </div>
               <div className="text-xs text-gray-500">{/* optionally unread count */}</div>
