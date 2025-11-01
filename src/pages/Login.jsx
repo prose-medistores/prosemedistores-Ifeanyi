@@ -9,6 +9,7 @@ const API = "https://medistore-backend.onrender.com";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -21,6 +22,7 @@ export default function Login() {
 
 const handleLogin = async (e) => {
   e.preventDefault();
+  setLoading(true);
   try {
     const res = await fetch(`${API}/api/auth/login`, {
       method: "POST",
@@ -52,7 +54,9 @@ const handleLogin = async (e) => {
     toast.success("Login successful!");
   } catch (error) {
     console.error(error);
-    alert("Something went wrong, please try again.");
+    toast.error("Something went wrong, please try again.");
+  } finally {
+    setLoading(false);
   }
 };
 
@@ -106,10 +110,11 @@ const handleLogin = async (e) => {
 
           <button
             type="submit"
+            disabled={loading}
             onClick={handleLogin}
             className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-all"
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
 

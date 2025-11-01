@@ -17,6 +17,7 @@ export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
 //   const handleChange = (e) => {
@@ -25,6 +26,7 @@ export default function Register() {
 
   const handleRegister = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const res = await axios.post(`${API}/api/auth/register`, {
@@ -45,6 +47,8 @@ export default function Register() {
     } catch (error) {
       console.error(error);
       alert(error.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -107,7 +111,7 @@ export default function Register() {
               className="w-full border border-gray-300 rounded-lg px-4 py-2 pr-10 focus:ring-2 focus:ring-primary outline-none"
               placeholder="Enter your password"
             />
-            {/* :eye: Toggle button */}
+            {/* Toggle button */}
             <button
               type="button"
               onClick={() => setShowPassword((prev) => !prev)}
@@ -119,10 +123,11 @@ export default function Register() {
 
           <button
             type="submit"
+            disabled={loading}
             onClick={handleRegister}
             className="w-full bg-primary hover:bg-primary/90 text-white font-medium py-2.5 rounded-lg transition-all"
           >
-            Register
+            {loading ? "Registering..." : "Register"}
           </button>
         </form>
 
