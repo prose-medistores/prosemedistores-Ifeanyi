@@ -6,6 +6,8 @@ import { Eye, EyeOff } from "lucide-react";
 
 const API = "https://medistore-backend.onrender.com";
 
+// const API = "http://localhost:5000"
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

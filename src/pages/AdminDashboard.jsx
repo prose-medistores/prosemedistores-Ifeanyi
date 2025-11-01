@@ -7,6 +7,8 @@ import { motion } from "framer-motion";
 
 const API = "https://medistore-backend.onrender.com"
 
+// const API = "http://localhost:5000"
+
 
 export default function AdminDashboard() {
   const navigate = useNavigate();
@@ -25,6 +27,70 @@ export default function AdminDashboard() {
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
   const [chatloading, setChatLoading] = useState(true);
+  const categories = [
+  "Analgesics",
+  "Anti Allergy",
+  "Anti-Cancer",
+  "Anti-Diabetic Drugs",
+  "Anti-Fungal",
+  "Anti-Malaria",
+  "Anti-Ulcer",
+  "Antiandrogens",
+  "Antibiotics",
+  "Anticonvulsants",
+  "Antidepressants",
+  "Diuretics",
+  "Antioxidant",
+  "Antipsychotics",
+  "Antiretrovirals",
+  "Antiseptic Liquid",
+  "Antispasmodics",
+  "Antithyroidism",
+  "Appetite Stimulants",
+  "Beauty and Cosmetics",
+  "Body Builder",
+  "Cardiovascular Health Drugs",
+  "Contraceptives",
+  "Control",
+  "Cough and Cold Drugs",
+  "Emergency Poisoning Treatment",
+  "Eye Supplements & Drugs",
+  "Eye, Ear & Nose Drops & Ointments",
+  "Featured",
+  "Feminine Hygiene & Suppositories",
+  "General",
+  "Hematinic",
+  "Immunosuppressants",
+  "Infusion",
+  "Inhibitors",
+  "Injection I.M/I.V",
+  "Iron Supplements",
+  "Joints and Bone Support Drugs",
+  "Laxatives",
+  "Lipid Lowering Drugs",
+  "Liver Supplements",
+  "Lozenges",
+  "Lubricant",
+  "Medical & Hospital Equipment",
+  "Oncology Drugs",
+  "Oral and Dental Care",
+  "Oral Rehydration",
+  "Probiotic",
+  "Respiratory Health",
+  "Sedatives",
+  "Sexual Wellness / Fertility Drugs",
+  "Sleep Aid",
+  "Topical Preparations",
+  "Vaccines",
+  "Weight Loss Supplements",
+  "Wellbeing / Dietary Supplements",
+  "Worm Expeller",
+  "Wound Dressing",
+];
+
+
+
+
   // Fetch all users (patients)
   useEffect(() => {
     const fetchUsers = async () => {
@@ -272,15 +338,20 @@ export default function AdminDashboard() {
                 }
                 className="border rounded-lg px-3 py-2"
                 />
-                <input
-                type="text"
-                placeholder="Category"
-                value={newProduct.category}
-                onChange={(e) =>
-                    setNewProduct({ ...newProduct, category: e.target.value })
-                }
-                className="border rounded-lg px-3 py-2"
-                />
+                <select
+                    value={newProduct.category}
+                    onChange={(e) =>
+                        setNewProduct({ ...newProduct, category: e.target.value })
+                    }
+                    className="border rounded-lg px-3 py-2 w-full focus:ring-2 focus:ring-primary outline-none"
+                    >
+                    <option value="">Select Category</option>
+                    {categories.map((cat) => (
+                        <option key={cat} value={cat}>
+                        {cat}
+                        </option>
+                    ))}
+                </select>
                 <input
                 type="number"
                 placeholder="Price"

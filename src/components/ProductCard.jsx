@@ -9,7 +9,7 @@ function formatCurrency(v) {
 
 export default function ProductCard({ product }) {
   const { add } = useCart();
-  
+
   return (
     <article
       key={product._id}
@@ -42,3 +42,4 @@ export default function ProductCard({ product }) {
     </article>
   );
 }
+
