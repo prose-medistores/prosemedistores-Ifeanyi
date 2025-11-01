@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import io from "socket.io-client";
 import axios from "axios";
 
-
+const API = "https://medistore-backend.onrender.com"
 
 export default function ChatBox({ label = "Talk to a doctor", conversationIdProp = null, isAdmin = false }) {
   const [messages, setMessages] = useState([]);
@@ -22,7 +22,7 @@ export default function ChatBox({ label = "Talk to a doctor", conversationIdProp
   const user = JSON.parse(localStorage.getItem("user"));
   const socketToken = user?.email && localStorage.getItem(`socket_token_${user.email}`);
 
-  const socket = io("http://localhost:5000", {
+  const socket = io(`${API}`, {
     auth: { token: socketToken || localStorage.getItem("token") },
     transports: ["websocket", "polling"],
     reconnectionAttempts: 10, // increased for stability
@@ -82,7 +82,7 @@ export default function ChatBox({ label = "Talk to a doctor", conversationIdProp
     if (!isOpen || !conversationId) return;
     const fetchHistory = async () => {
       try {
-        const res = await axios.get(`${process.env.REACT_APP_API_BASE || "http://localhost:5000"}/api/chat/messages/${conversationId}`, {
+        const res = await axios.get(`${process.env.REACT_APP_API_BASE || `${API}`}/api/chat/messages/${conversationId}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setMessages(res.data || []);
