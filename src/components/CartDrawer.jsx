@@ -56,7 +56,7 @@ export default function CartDrawer({ open, onClose }) {
     if (res.data.success) {
       // Now proceed to WhatsApp after order is saved
       const lines = [
-        "Hello, I want to place an order from MediStore.",
+        "Hello, I want to place an order from ProseMediStore.",
         "",
         "🛍️ Order details:",
         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
