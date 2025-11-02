@@ -16,6 +16,8 @@ import axios from "axios";
 
 const API = "https://medistore-backend.onrender.com";
 
+
+
 export default function Home() {
   const [cartOpen, setCartOpen] = useState(false);
   const [products, setProducts] = useState([]);
@@ -34,7 +36,7 @@ export default function Home() {
     };
     fetchProducts();
   }, []);
-  // :mag: Filter products by name or category
+  //  Filter products by name or category
   const filteredProducts = products.filter((product) => {
     const nameMatch = product.name
       ?.toLowerCase()
@@ -54,7 +56,7 @@ export default function Home() {
             <h2 className="text-2xl font-semibold text-primary mb-6">
               Available Medicines
             </h2>
-            {/* :small_blue_diamond: Search bar */}
+            {/*  Search bar */}
             <div className="flex justify-center mb-8">
               <div className="relative w-full sm:w-1/2">
                 <input
