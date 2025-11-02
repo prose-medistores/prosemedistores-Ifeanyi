@@ -2,6 +2,7 @@ import React from "react";
 import { useCart } from "../context/CartContext";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function formatCurrency(v) {
   return `₦${Number(v).toLocaleString()}`;
@@ -31,7 +32,7 @@ export default function ProductCard({ product }) {
             {formatCurrency(product.price)}
           </div>
           <button
-            onClick={() => add(product, 1)}
+            onClick={() => {add(product, 1); toast.success(`${product.name} added to cart`);}}
             className="px-4 py-2 bg-accent text-white rounded-lg font-medium hover:brightness-95 transition"
             aria-label={`Add ${product.name} to cart`}
           >
