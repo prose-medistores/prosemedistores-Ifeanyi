@@ -39,6 +39,7 @@ export default function AdminDashboard() {
   "Anti-Ulcer",
   "Antiandrogens",
   "Antibiotics",
+  "Antiviral",
   "Anticonvulsants",
   "Antidepressants",
   "Diuretics",
