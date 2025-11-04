@@ -46,7 +46,7 @@ export default function HowToInstall() {
               </ol>
               <p className="mt-4 text-sm text-gray-500 italic">
                 ✅ Tip: Once added, you can browse medicines and healthcare
-                products seamlessly — even with limited internet.
+                products seamlessly even with limited internet.
               </p>
             </div>
           </section>
@@ -74,7 +74,7 @@ export default function HowToInstall() {
                   corner.
                 </li>
                 <li>
-                  You’ll now see the ProseMediStore icon on your home screen —
+                  You’ll now see the ProseMediStore icon on your home screen,
                   tap it anytime for quick access.
                 </li>
               </ol>
