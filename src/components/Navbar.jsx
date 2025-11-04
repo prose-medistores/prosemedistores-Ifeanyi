@@ -195,150 +195,149 @@ export default function Navbar({ onCartOpen }) {
   };
   return (
     <nav className="bg-white shadow-md sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-            <span className="font-bold text-primary text-lg">PMS</span>
-          </div>
-          <div className="block">
-            <h1 className="text-lg font-semibold text-primary leading-none">
-              ProseMediStore
-            </h1>
-            <p className="text-xs text-gray-500 -mt-0.5">
-              Trusted online pharmacy
-            </p>
-          </div>
-        </Link>
-        {/* Desktop Navigation */}
-        <div className="hidden md:flex items-center gap-8">
-          <a href="#shop" className="text-gray-700 hover:text-primary font-medium">
-            Shop
-          </a>
-          <a href="#how" className="text-gray-700 hover:text-primary font-medium">
-            How it works
-          </a>
-          <a href="#chat" className="text-gray-700 hover:text-primary font-medium">
-            Consult
-          </a>
-        </div>
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center gap-4">
-          <Link
-            to="/login"
-            className="text-sm font-medium text-gray-700 hover:text-primary"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            className="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary/90 transition-all"
-          >
-            Register
-          </Link>
-          <button
-            onClick={onCartOpen}
-            aria-label="Open cart"
-            className="relative p-2 bg-primary text-white rounded-lg focus:outline-none hover:bg-primary/90 transition-all"
-          >
-            <IconCart className="text-white" />
-            {count > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5 leading-4">
-                {count}
-              </span>
-            )}
-          </button>
-        </div>
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 rounded-lg hover:bg-gray-100 text-gray-700"
-          onClick={toggleDrawer}
-          aria-label="Toggle menu"
-        >
-          {drawerOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+  <div className="max-w-7xl mx-auto px-6 lg:px-8 flex justify-between items-center h-16">
+    {/* Logo */}
+    <Link to="/" className="flex items-center gap-3">
+      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+        <span className="font-bold text-primary text-lg">PMS</span>
       </div>
-      {/* Mobile Drawer */}
-      <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
-          drawerOpen ? "translate-x-0" : "translate-x-full"
-        }`}
+      <div className="block">
+        <h1 className="text-lg font-semibold text-primary leading-none">
+          ProseMediStore
+        </h1>
+        <p className="text-xs text-gray-500 -mt-0.5">
+          Trusted online pharmacy
+        </p>
+      </div>
+    </Link>
+    {/* Desktop Navigation */}
+    <div className="hidden md:flex items-center gap-8">
+      <a href="#shop" className="text-gray-700 hover:text-primary font-medium">
+        Shop
+      </a>
+      <a href="/how" className="text-gray-700 hover:text-primary font-medium">
+        How to install
+      </a>
+      <a href="#chat" className="text-gray-700 hover:text-primary font-medium">
+        Consult
+      </a>
+    </div>
+    {/* Desktop Actions */}
+    <div className="hidden md:flex items-center gap-4">
+      <Link
+        to="/login"
+        className="text-sm font-medium text-gray-700 hover:text-primary"
       >
-        <div className="flex justify-between items-center px-4 py-4 border-b">
-          <div className="flex items-center gap-2">
-            {/* <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-              <span className="font-bold text-primary text-lg">PMS</span>
-            </div> */}
-
-            <h1 className="font-semibold text-primary text-lg">Menu</h1>
-          </div>
-          <button
-            onClick={toggleDrawer}
-            className="p-1 rounded-lg hover:bg-gray-100"
-          >
-            <X size={22} />
-          </button>
-        </div>
-        <div className="flex flex-col mt-6 space-y-4 px-5">
-          <a
-            href="#shop"
-            className="text-gray-700 hover:text-primary font-medium"
-            onClick={toggleDrawer}
-          >
-            Shop
-          </a>
-          <a
-            href="#how"
-            className="text-gray-700 hover:text-primary font-medium"
-            onClick={toggleDrawer}
-          >
-            How it works
-          </a>
-          <a
-            href="#chat"
-            className="text-gray-700 hover:text-primary font-medium"
-            onClick={toggleDrawer}
-          >
-            Consult
-          </a>
-          <Link
-            to="/login"
-            onClick={toggleDrawer}
-            className="text-gray-700 font-medium hover:text-primary"
-          >
-            Login
-          </Link>
-          <Link
-            to="/register"
-            onClick={toggleDrawer}
-            className="bg-primary text-white text-center py-2 rounded-lg font-medium hover:bg-primary/90 transition-all"
-          >
-            Register
-          </Link>
-          <button
-            onClick={() => {
-              onCartOpen();
-              toggleDrawer();
-            }}
-            className="flex items-center gap-2 text-gray-700 hover:text-primary text-base border-t border-gray-100 pt-4 mt-4"
-          >
-            <IconCart className="w-5 h-5" /> View Cart
-            {count > 0 && (
-              <span className="ml-1 text-xs bg-red-500 text-white px-2 rounded-full">
-                {count}
-              </span>
-            )}
-          </button>
-        </div>
+        Login
+      </Link>
+      <Link
+        to="/register"
+        className="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary/90 transition-all"
+      >
+        Register
+      </Link>
+      <button
+        onClick={onCartOpen}
+        aria-label="Open cart"
+        className="relative p-2 bg-primary text-white rounded-lg focus:outline-none hover:bg-primary/90 transition-all"
+      >
+        <IconCart className="text-white" />
+        {count > 0 && (
+          <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full text-xs px-1.5 leading-4">
+            {count}
+          </span>
+        )}
+      </button>
+    </div>
+    {/* Mobile Cart + Menu Buttons */}
+    <div className="flex items-center gap-3 md:hidden">
+      {/* View Cart Button (moved out of drawer) */}
+      <button
+        onClick={onCartOpen}
+        aria-label="Open cart"
+        className="relative flex items-center gap-2 bg-primary text-white px-3 py-2 rounded-lg font-medium hover:bg-primary/90 transition-all"
+      >
+        <IconCart className="w-5 h-5" />
+        <span>Cart</span>
+        {count > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs px-1.5 rounded-full">
+            {count}
+          </span>
+        )}
+      </button>
+      {/* Mobile Menu Button */}
+      <button
+        className="p-2 rounded-lg hover:bg-gray-100 text-gray-700"
+        onClick={toggleDrawer}
+        aria-label="Toggle menu"
+      >
+        {drawerOpen ? <X size={24} /> : <Menu size={24} />}
+      </button>
+    </div>
+  </div>
+  {/* Mobile Drawer */}
+  <div
+    className={`fixed top-0 right-0 h-full w-72 bg-white shadow-xl transform transition-transform duration-300 ease-in-out z-50 ${
+      drawerOpen ? "translate-x-0" : "translate-x-full"
+    }`}
+  >
+    <div className="flex justify-between items-center px-4 py-4 border-b">
+      <div className="flex items-center gap-2">
+        <h1 className="font-semibold text-primary text-lg">Menu</h1>
       </div>
-      {/* Backdrop */}
-      {drawerOpen && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40"
-          onClick={toggleDrawer}
-        ></div>
-      )}
-    </nav>
+      <button
+        onClick={toggleDrawer}
+        className="p-1 rounded-lg hover:bg-gray-100"
+      >
+        <X size={22} />
+      </button>
+    </div>
+    <div className="flex flex-col mt-6 space-y-4 px-5">
+      <a
+        href="#shop"
+        className="text-gray-700 hover:text-primary font-medium"
+        onClick={toggleDrawer}
+      >
+        Shop
+      </a>
+      <a
+        href="/how"
+        className="text-gray-700 hover:text-primary font-medium"
+        onClick={toggleDrawer}
+      >
+        How to install
+      </a>
+      <a
+        href="#chat"
+        className="text-gray-700 hover:text-primary font-medium"
+        onClick={toggleDrawer}
+      >
+        Consult
+      </a>
+      <Link
+        to="/login"
+        onClick={toggleDrawer}
+        className="text-gray-700 font-medium hover:text-primary"
+      >
+        Login
+      </Link>
+      <Link
+        to="/register"
+        onClick={toggleDrawer}
+        className="bg-primary text-white text-center py-2 rounded-lg font-medium hover:bg-primary/90 transition-all"
+      >
+        Register
+      </Link>
+    </div>
+  </div>
+  {/* Backdrop */}
+  {drawerOpen && (
+    <div
+      className="fixed inset-0 bg-black bg-opacity-40 z-40"
+      onClick={toggleDrawer}
+    ></div>
+  )}
+</nav>
   );
 }
 
