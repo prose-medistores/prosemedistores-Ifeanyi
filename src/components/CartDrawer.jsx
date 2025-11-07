@@ -203,9 +203,15 @@ export default function CartDrawer({ open, onClose }) {
             </div>
 
             <div className="mt-3 grid grid-cols-1 gap-2">
-              <button onClick={handleCheckout} disabled={isCheckingOut} className="w-full bg-accent text-white py-2 rounded-lg">
-                Checkout via WhatsApp
-              </button>
+              <button
+      onClick={handleCheckout}
+      disabled={isCheckingOut}
+      className={`w-full bg-accent text-white py-2 rounded-lg transition-all ${
+        isCheckingOut ? "opacity-70 cursor-not-allowed" : ""
+      }`}
+    >
+      {isCheckingOut ? "Checking out..." : "Checkout via WhatsApp"}
+    </button>
               <button onClick={() => setShowCheckout(false)} className="w-full border py-2 rounded-lg">
                 Back
               </button>
