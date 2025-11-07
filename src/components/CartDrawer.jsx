@@ -16,6 +16,7 @@ export default function CartDrawer({ open, onClose }) {
   const [showCheckout, setShowCheckout] = useState(false);
   const [delivery, setDelivery] = useState({ name: "", phone: "", address: "", email: "" });
   const ref = useRef(null);
+  const [isCheckingOut, setIsCheckingOut] = useState(false)
 
   useEffect(() => {
     if (!open) return;
@@ -35,6 +36,7 @@ export default function CartDrawer({ open, onClose }) {
     alert("Please fill in delivery name, phone, address and email.");
     return;
   }
+  setIsCheckingOut(false)
   try {
     // Build order data
     const orderData = {
@@ -80,6 +82,8 @@ export default function CartDrawer({ open, onClose }) {
   } catch (error) {
     console.error("Checkout Error:", error);
     alert("Something went wrong while processing your order. Please try again.");
+  } finally {
+    setIsCheckingOut(false)
   }
 };
 
@@ -199,7 +203,7 @@ export default function CartDrawer({ open, onClose }) {
             </div>
 
             <div className="mt-3 grid grid-cols-1 gap-2">
-              <button onClick={handleCheckout} className="w-full bg-accent text-white py-2 rounded-lg">
+              <button onClick={handleCheckout} disabled={isCheckingOut} className="w-full bg-accent text-white py-2 rounded-lg">
                 Checkout via WhatsApp
               </button>
               <button onClick={() => setShowCheckout(false)} className="w-full border py-2 rounded-lg">
