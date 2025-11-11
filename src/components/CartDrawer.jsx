@@ -112,7 +112,7 @@ const handleCheckout = async () => {
     if (res.data.success) {
       // Build WhatsApp message
       const lines = [
-        "Hello :👋, I want to place an order from ProseMediStore 🏥",
+        "Hello 👋, I want to place an order from ProseMediStore 🏥",
         "",
         "🛍️ *Order details:*",
         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
