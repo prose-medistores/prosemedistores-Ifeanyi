@@ -39,38 +39,38 @@ import { Toaster } from "react-hot-toast";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/Contact";
 import HowToInstall from "./pages/HowToInstall";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 
 export default function App() {
 
   // Auto-update logic
-  useEffect(() => {
-    if ("serviceWorker" in navigator) {
-      // Try registering service worker (if it exists in public folder)
-      navigator.serviceWorker
-        .register("/service-worker.js")
-        .then((registration) => {
-          // Check for new versions
-          registration.onupdatefound = () => {
-            const newWorker = registration.installing;
-            newWorker.onstatechange = () => {
-              if (
-                newWorker.state === "installed" &&
-                navigator.serviceWorker.controller
-              ) {
-                // Automatically reload for latest version
-                window.location.reload();
-              }
-            };
-          };
-        })
-        .catch((err) => console.log("SW registration failed:", err));
-      // Also manually check all registered SWs for updates
-      navigator.serviceWorker.getRegistrations().then((registrations) => {
-        registrations.forEach((r) => r.update());
-      });
-    }
-  }, []);
+  // useEffect(() => {
+  //   if ("serviceWorker" in navigator) {
+  //     // Try registering service worker (if it exists in public folder)
+  //     navigator.serviceWorker
+  //       .register("/service-worker.js")
+  //       .then((registration) => {
+  //         // Check for new versions
+  //         registration.onupdatefound = () => {
+  //           const newWorker = registration.installing;
+  //           newWorker.onstatechange = () => {
+  //             if (
+  //               newWorker.state === "installed" &&
+  //               navigator.serviceWorker.controller
+  //             ) {
+  //               // Automatically reload for latest version
+  //               window.location.reload();
+  //             }
+  //           };
+  //         };
+  //       })
+  //       .catch((err) => console.log("SW registration failed:", err));
+  //     // Also manually check all registered SWs for updates
+  //     navigator.serviceWorker.getRegistrations().then((registrations) => {
+  //       registrations.forEach((r) => r.update());
+  //     });
+  //   }
+  // }, []);
 
 
   return (
