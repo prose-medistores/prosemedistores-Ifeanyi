@@ -94,7 +94,7 @@ const handleCheckout = async () => {
   }
   setIsCheckingOut(true);
   try {
-    // Prepare order data
+    // Build order data
     const orderData = {
       email: delivery.email,
       phone: delivery.phone,
@@ -108,12 +108,11 @@ const handleCheckout = async () => {
       })),
       totalAmount: total,
     };
-    // Send order to backend
     const res = await axios.post(`${API}/api/orders/checkout`, orderData);
     if (res.data.success) {
       // Build WhatsApp message
       const lines = [
-        "Hello 👋, I want to place an order from ProseMediStore 🏥",
+        "Hello :👋, I want to place an order from ProseMediStore 🏥",
         "",
         "🛍️ *Order details:*",
         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
@@ -130,15 +129,22 @@ const handleCheckout = async () => {
       ];
       const message = encodeURIComponent(lines.join("\n"));
       const url = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${message}`;
-      // Delay a bit to satisfy iOS Safari and make sure it's user-driven
+      // Detect iOS
+      const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
       setTimeout(() => {
-        const newWindow = window.open(url, "_blank");
-        if (!newWindow) {
-          alert(
-            "If WhatsApp didn’t open automatically, please make sure it’s installed and try again."
-          );
+        if (isIOS) {
+          // Safari: open in same tab
+          window.location.href = url;
+        } else {
+          // Others: open new tab
+          const newWindow = window.open(url, "_blank");
+          if (!newWindow) {
+            alert(
+              "If WhatsApp didn’t open automatically, please make sure it’s installed and try again."
+            );
+          }
         }
-      }, 500);
+      }, 400);
     } else {
       alert("Failed to create order. Please try again.");
     }
@@ -149,6 +155,9 @@ const handleCheckout = async () => {
     setIsCheckingOut(false);
   }
 };
+
+
+
 
   if (!open) return null;
 
