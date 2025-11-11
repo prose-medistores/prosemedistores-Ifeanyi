@@ -113,20 +113,20 @@ const handleCheckout = async () => {
     if (res.data.success) {
       // Build WhatsApp message
       const lines = [
-        "Hello :wave:, I want to place an order from ProseMediStore :hospital:",
+        "Hello 👋, I want to place an order from ProseMediStore 🏥",
         "",
-        ":shopping_bags: *Order details:*",
+        "🛍️ *Order details:*",
         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
         "",
-        `:moneybag: *Total:* ₦${total.toLocaleString()}`,
+        `💰 *Total:* ₦${total.toLocaleString()}`,
         "",
-        ":package: *Delivery Information:*",
+        "📦 *Delivery Information:*",
         `Name: ${delivery.name}`,
         `Phone: ${delivery.phone}`,
         `Address: ${delivery.address}`,
         `Email: ${delivery.email}`,
         "",
-        `:receipt: *Order Reference:* ${res.data.order.orderRef}`,
+        `🧾 *Order Reference:* ${res.data.order.orderRef}`,
       ];
       const message = encodeURIComponent(lines.join("\n"));
       const url = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${message}`;
