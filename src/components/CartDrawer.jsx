@@ -31,21 +31,76 @@ export default function CartDrawer({ open, onClose }) {
     if (open) ref.current?.focus();
   }, [open]);
 
-  const handleCheckout = async () => {
+//   const handleCheckout = async () => {
+//   if (!delivery.name || !delivery.phone || !delivery.address || !delivery.email) {
+//     alert("Please fill in delivery name, phone, address and email.");
+//     return;
+//   }
+//   setIsCheckingOut(true)
+//   try {
+//     // Build order data
+//     const orderData = {
+//       email: delivery.email,
+//       phone: delivery.phone,
+//       name: delivery.name,
+//       deliveryAddress: delivery.address,
+//       items: items.map((i) => ({
+//         // productId: i._id,
+//         name: i.name,
+//         price: i.price,
+//         quantity: i.qty,
+//         image: i.image,
+//       })),
+//       totalAmount: total,
+//     };
+//     // Send to backend
+//     const res = await axios.post(`${API}/api/orders/checkout`, orderData);
+//     if (res.data.success) {
+//       // Now proceed to WhatsApp after order is saved
+//       const lines = [
+//         "Hello, I want to place an order from ProseMediStore.",
+//         "",
+//         "🛍️ Order details:",
+//         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
+//         "",
+//         `💰 Total: ₦${total.toLocaleString()}`,
+//         "",
+//         "📦 Delivery Information:",
+//         `Name: ${delivery.name}`,
+//         `Phone: ${delivery.phone}`,
+//         `Address: ${delivery.address}`,
+//         `Email: ${delivery.email}`,
+//         "",
+//         `Order Reference: ${res.data.order.orderRef}`,
+//       ];
+//       const message = encodeURIComponent(lines.join("\n"));
+//       const url = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${message}`;
+//       window.open(url, "_blank");
+//     } else {
+//       alert("Failed to create order. Please try again.");
+//     }
+//   } catch (error) {
+//     console.error("Checkout Error:", error);
+//     alert("Something went wrong while processing your order. Please try again.");
+//   } finally {
+//     setIsCheckingOut(false)
+//   }
+// };
+
+const handleCheckout = async () => {
   if (!delivery.name || !delivery.phone || !delivery.address || !delivery.email) {
     alert("Please fill in delivery name, phone, address and email.");
     return;
   }
-  setIsCheckingOut(true)
+  setIsCheckingOut(true);
   try {
-    // Build order data
+    // Prepare order data
     const orderData = {
       email: delivery.email,
       phone: delivery.phone,
       name: delivery.name,
       deliveryAddress: delivery.address,
       items: items.map((i) => ({
-        // productId: i._id,
         name: i.name,
         price: i.price,
         quantity: i.qty,
@@ -53,29 +108,37 @@ export default function CartDrawer({ open, onClose }) {
       })),
       totalAmount: total,
     };
-    // Send to backend
+    // Send order to backend
     const res = await axios.post(`${API}/api/orders/checkout`, orderData);
     if (res.data.success) {
-      // Now proceed to WhatsApp after order is saved
+      // Build WhatsApp message
       const lines = [
-        "Hello, I want to place an order from ProseMediStore.",
+        "Hello :wave:, I want to place an order from ProseMediStore :hospital:",
         "",
-        "🛍️ Order details:",
+        ":shopping_bags: *Order details:*",
         ...items.map((i) => `- ${i.name} x${i.qty} — ₦${i.price * i.qty}`),
         "",
-        `💰 Total: ₦${total.toLocaleString()}`,
+        `:moneybag: *Total:* ₦${total.toLocaleString()}`,
         "",
-        "📦 Delivery Information:",
+        ":package: *Delivery Information:*",
         `Name: ${delivery.name}`,
         `Phone: ${delivery.phone}`,
         `Address: ${delivery.address}`,
         `Email: ${delivery.email}`,
         "",
-        `Order Reference: ${res.data.order.orderRef}`,
+        `:receipt: *Order Reference:* ${res.data.order.orderRef}`,
       ];
       const message = encodeURIComponent(lines.join("\n"));
       const url = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${message}`;
-      window.open(url, "_blank");
+      // Delay a bit to satisfy iOS Safari and make sure it's user-driven
+      setTimeout(() => {
+        const newWindow = window.open(url, "_blank");
+        if (!newWindow) {
+          alert(
+            "If WhatsApp didn’t open automatically, please make sure it’s installed and try again."
+          );
+        }
+      }, 500);
     } else {
       alert("Failed to create order. Please try again.");
     }
@@ -83,7 +146,7 @@ export default function CartDrawer({ open, onClose }) {
     console.error("Checkout Error:", error);
     alert("Something went wrong while processing your order. Please try again.");
   } finally {
-    setIsCheckingOut(false)
+    setIsCheckingOut(false);
   }
 };
 
