@@ -1,7 +1,7 @@
 import React from "react";
 import { useCart } from "../context/CartContext";
-import { useState, useEffect } from "react";
-import axios from "axios";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 import toast from "react-hot-toast";
 
 function formatCurrency(v) {

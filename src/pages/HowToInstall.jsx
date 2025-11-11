@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
-import { Smartphone, Chrome, Globe } from "lucide-react";
+import { Smartphone,  Globe } from "lucide-react";
 export default function HowToInstall() {
   return (
     <>

@@ -4,7 +4,7 @@ import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
 import CartDrawer from "../components/CartDrawer";
 import Footer from "../components/Footer";
-import { drugs } from "../data/drugs";
+// import { drugs } from "../data/drugs";
 import { FaWhatsapp } from "react-icons/fa";
 import TrustedCareSection from "../components/TrustedCardSection";
 import axios from "axios";
