@@ -191,7 +191,7 @@ useEffect(() => {
           type="file"
           accept="image/*"
           id="prescriptionUpload"
-          className="hidden"
+          className="absolute opacity-0 w-full h-full z-20 cursor-pointer"
           onChange={(e) => setPrescription(e.target.files[0])}
         />
         <label

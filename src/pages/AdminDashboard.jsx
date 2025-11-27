@@ -608,6 +608,8 @@ export default function AdminDashboard() {
                   </option>
                 ))}
               </select>
+              {/* Dropdown arrow - does NOT interfere with select on iPhone */}
+              <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
               <svg
                 className="absolute right-3 top-2.5 h-5 w-5 text-gray-400 pointer-events-none"
                 xmlns="http://www.w3.org/2000/svg"
@@ -622,6 +624,7 @@ export default function AdminDashboard() {
                   d="M19 9l-7 7-7-7"
                 />
               </svg>
+              </div>
             </div>
           </div>
         )}
