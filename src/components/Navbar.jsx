@@ -199,7 +199,11 @@ export default function Navbar({ onCartOpen }) {
     {/* Logo */}
     <Link to="/" className="flex items-center gap-3">
       <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-        <span className="font-bold text-primary text-lg">PMS</span>
+        <img
+        src="/Prologo.png"
+        alt="Logo"
+        className="w-full h-full object-contain"
+        />
       </div>
       <div className="block">
         <h1 className="text-lg font-semibold text-primary leading-none">
