@@ -49,6 +49,7 @@ export default function AdminDashboard() {
   "Antiseptic Liquid",
   "Antispasmodics",
   "Antithyroidism",
+  "Antihypertensives",
   "Appetite Stimulants",
   "Beauty and Cosmetics",
   "Body Builder",
