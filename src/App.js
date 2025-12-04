@@ -15,12 +15,12 @@ import { Toaster } from "react-hot-toast";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/Contact";
 import HowToInstall from "./pages/HowToInstall";
-import usePageTracking from "./utils/UsePageTracking";
+// import usePageTracking from "./utils/UsePageTracking";
 // import { useEffect } from "react";
 
 export default function App() {
 
-  usePageTracking()
+  // usePageTracking()
 
   // Auto-update logic
   // useEffect(() => {
