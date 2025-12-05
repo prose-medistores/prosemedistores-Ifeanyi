@@ -2,6 +2,7 @@
 
 
 import React from "react";
+// eslint-disable-next-line no-unused-vars
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { CartProvider } from "./context/CartContext";
 import Home from "./pages/Home";
@@ -15,47 +16,20 @@ import { Toaster } from "react-hot-toast";
 import AboutUs from "./pages/AboutUs";
 import ContactUs from "./pages/Contact";
 import HowToInstall from "./pages/HowToInstall";
-// import usePageTracking from "./utils/UsePageTracking";
+import usePageTracking from "./utils/UsePageTracking";
 // import { useEffect } from "react";
 
 export default function App() {
 
-  // usePageTracking()
+  usePageTracking()
 
-  // Auto-update logic
-  // useEffect(() => {
-  //   if ("serviceWorker" in navigator) {
-  //     // Try registering service worker (if it exists in public folder)
-  //     navigator.serviceWorker
-  //       .register("/service-worker.js")
-  //       .then((registration) => {
-  //         // Check for new versions
-  //         registration.onupdatefound = () => {
-  //           const newWorker = registration.installing;
-  //           newWorker.onstatechange = () => {
-  //             if (
-  //               newWorker.state === "installed" &&
-  //               navigator.serviceWorker.controller
-  //             ) {
-  //               // Automatically reload for latest version
-  //               window.location.reload();
-  //             }
-  //           };
-  //         };
-  //       })
-  //       .catch((err) => console.log("SW registration failed:", err));
-  //     // Also manually check all registered SWs for updates
-  //     navigator.serviceWorker.getRegistrations().then((registrations) => {
-  //       registrations.forEach((r) => r.update());
-  //     });
-  //   }
-  // }, []);
-
+  
 
   return (
-    <CartProvider>    
-      <Router>
-        <Toaster position="top-right" reverseOrder={false} />
+    <CartProvider>   
+      <Toaster position="top-right" reverseOrder={false} /> 
+      
+        
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -68,7 +42,7 @@ export default function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/contact" element={<ContactUs />} />
         </Routes>
-      </Router>
+     
     </CartProvider>
   );
 }
