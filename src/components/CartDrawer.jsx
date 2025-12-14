@@ -7,7 +7,7 @@ function formatCurrency(v) {
 }
 
 /* Replace this with your store WhatsApp number in international format (no +) */
-const STORE_WHATSAPP_NUMBER = "2348057712830";
+const STORE_WHATSAPP_NUMBER = "2348162738527";
 
 const API = "https://medistore-backend.onrender.com"
 
