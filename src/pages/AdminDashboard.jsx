@@ -23,6 +23,8 @@ export default function AdminDashboard() {
     image: "",
   });
   const [loading, setLoading] = useState(false);
+  const [search, setSearch] = useState("");
+  const filteredProducts = products.filter((p)=> p.name.toLowerCase().includes(search.toLowerCase()) || p.category.toLowerCase().includes(search.toLowerCase()))
   
   const [users, setUsers] = useState([]);
   const [selectedUserId, setSelectedUserId] = useState(null);
@@ -441,12 +443,22 @@ const handleUpdateProduct = async () => {
             {loading ? "Adding..." : "Add Product"}
             </button>
             </form>
+           
             <div>
-              <h2 className="text-lg font-semibold text-primary mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-4 gap-3">
+              <h2 className="text-lg font-semibold text-primary">
                 Product List
               </h2>
+              <input
+                type="text"
+                placeholder="Search products..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full sm:w-64 border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+              />
+            </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {products.map((p) => (
+                 {filteredProducts.map((p) => (
                   <div
                     key={p._id}
                     className="bg-white shadow rounded-xl overflow-hidden"
@@ -464,27 +476,34 @@ const handleUpdateProduct = async () => {
                       </p>
 
                       
-<div className="flex gap-2 mt-4">
-    <button
-      onClick={() => openEditModal(p)}
-      className="bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 transition w-full"
-    >
-      Edit
-    </button>
-    <button
-      onClick={() => handleDelete(p._id)}
-      className="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700 transition w-full"
-    >
-      Delete
-    </button>
-  </div>
+                  <div className="flex gap-2 mt-4">
+                      <button
+                        onClick={() => openEditModal(p)}
+                        className="bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 transition w-full"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDelete(p._id)}
+                        className="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700 transition w-full"
+                      >
+                        Delete
+                      </button>
+                    </div>
                     </div>
                   </div>
                 ))}
+                {filteredProducts.length === 0 && (
+                  <p className="text-gray-500 text-sm mt-6 text-center">
+                    No products found
+                  </p>
+                )}
               </div>
             </div>
           </div>
         )}
+
+       
 
         {/* Prescriptions */}
         {activeTab === "prescriptions" && (
