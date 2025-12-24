@@ -93,7 +93,25 @@ export default function AdminDashboard() {
   "Wound Dressing",
 ];
 
+//updating product
+const [editingProduct, setEditingProduct] = useState(null);
+const [editForm, setEditForm] = useState({
+  name: "",
+  category: "",
+  price: "",
+  image: null,
+});
 
+
+const openEditModal = (product) => {
+  setEditingProduct(product);
+  setEditForm({
+    name: product.name,
+    category: product.category,
+    price: product.price,
+    image: null,
+  });
+};
 
 
   // Fetch all users (patients)
@@ -162,11 +180,11 @@ export default function AdminDashboard() {
       console.error(err);
     }
   };
-  console.log("Token ", token);
+  
   
   const fetchOrders = async () => {
   try {
-    const token = localStorage.getItem("token"); // :white_check_mark: always fetch fresh token
+    const token = localStorage.getItem("token"); // always fetch fresh token
     if (!token) {
       console.warn("No token found, please log in again");
       return;
@@ -212,6 +230,41 @@ export default function AdminDashboard() {
     toast.error("Error adding product");
   } finally {
     setLoading(false);
+  }
+};
+
+const handleUpdateProduct = async () => {
+  try {
+    const formData = new FormData();
+    formData.append("name", editForm.name);
+    formData.append("category", editForm.category);
+    formData.append("price", editForm.price);
+    if (editForm.image) {
+      formData.append("image", editForm.image);
+    }
+
+    if(!token){
+        alert("You must be logged in as admin to add products")
+        setLoading(false);
+        return;
+    }
+
+    await axios.put(
+      `${API}/api/products/${editingProduct._id}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    toast.success("Product updated successfully");
+    setEditingProduct(null);
+    fetchProducts(); // refresh list
+  } catch (error) {
+    toast.error("Failed to update product");
+    console.error(error);
   }
 };
 
@@ -410,12 +463,21 @@ export default function AdminDashboard() {
                         ₦{p.price.toLocaleString()}
                       </p>
 
-                      <button
-                        onClick={() => handleDelete(p._id)}
-                        className="mt-4 bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700 transition-all w-full"
-                    >
-                        Delete
-                    </button>
+                      
+<div className="flex gap-2 mt-4">
+    <button
+      onClick={() => openEditModal(p)}
+      className="bg-blue-600 text-white text-sm px-4 py-2 rounded-md hover:bg-blue-700 transition w-full"
+    >
+      Edit
+    </button>
+    <button
+      onClick={() => handleDelete(p._id)}
+      className="bg-red-600 text-white text-sm px-4 py-2 rounded-md hover:bg-red-700 transition w-full"
+    >
+      Delete
+    </button>
+  </div>
                     </div>
                   </div>
                 ))}
@@ -648,6 +710,63 @@ export default function AdminDashboard() {
         )}
       </motion.div>
     </div>
+
+    {editingProduct && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="bg-white rounded-xl p-6 w-full max-w-md">
+      <h2 className="text-lg font-semibold mb-4">Edit Product</h2>
+      <input
+        type="text"
+        value={editForm.name}
+        onChange={(e) =>
+          setEditForm({ ...editForm, name: e.target.value })
+        }
+        className="w-full border rounded-lg px-3 py-2 mb-3"
+        placeholder="Product name"
+      />
+      <input
+        type="text"
+        value={editForm.category}
+        onChange={(e) =>
+          setEditForm({ ...editForm, category: e.target.value })
+        }
+        className="w-full border rounded-lg px-3 py-2 mb-3"
+        placeholder="Category"
+      />
+      <input
+        type="number"
+        value={editForm.price}
+        onChange={(e) =>
+          setEditForm({ ...editForm, price: e.target.value })
+        }
+        className="w-full border rounded-lg px-3 py-2 mb-3"
+        placeholder="Price"
+      />
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) =>
+          setEditForm({ ...editForm, image: e.target.files[0] })
+        }
+        className="mb-4"
+      />
+      <div className="flex gap-3">
+        <button
+          onClick={handleUpdateProduct}
+          className="bg-primary text-white px-4 py-2 rounded-lg w-full"
+        >
+          Save Changes
+        </button>
+        <button
+          onClick={() => setEditingProduct(null)}
+          className="border px-4 py-2 rounded-lg w-full"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 
 
 
