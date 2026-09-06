@@ -76,7 +76,7 @@ export default function ContactUs() {
               <Phone className="text-primary" />
               <div>
                 <p className="font-medium text-gray-800">Phone</p>
-                <p className="text-gray-500">+234 806 550 3154</p>
+                <p className="text-gray-500">+234 907 209 6805</p>
               </div>
             </div>
             <div className="flex items-center gap-4">

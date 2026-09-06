@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 /**
  * AboutUs.jsx
  * Production-grade About page for ProseMediStore / MediStore
@@ -47,19 +48,29 @@ export default function AboutUs() {
     img: "/ify.jpg" 
   },
   { 
-    name: "Dr. Glory Ekanem", // Update with full name
+    name: "Dr. Glory Ekanem", 
     role: "Doctor 2", 
     img: "/glory.jpg" 
   },
   { 
-    name: "Dr. Gift Seikakere", // Update with full name
+    name: "Dr. Gift Seikakere", 
     role: "Doctor 3", 
     img: "/gift.jpg" 
   },
   { 
-    name: "Charles", // Update with full name
+    name: "Charles", 
     role: "CTO", 
     img: "/char2.jpg" 
+  },
+  { 
+    name: "Miss Oselumehse Beckley", 
+    role: "Customer Support", 
+    img: "/ose.jpg" 
+  },
+  { 
+    name: "Mr Izunna Fortune", 
+    role: "Customer Support", 
+    img: "/izunna.jpg" 
   },
 ];
   return (
@@ -149,7 +160,7 @@ export default function AboutUs() {
             </div>
             <div className="mt-6">
               <h5 className="text-sm text-gray-500">Headquarters</h5>
-              <p className="text-sm text-gray-700 mt-1">Abakaliki, Ebonyi state, Nigeria</p>
+              <p className="text-sm text-gray-700 mt-1">Administrative Office: 3C7J+8PW. Utako</p>
             </div>
           </aside>
         </section>
@@ -195,22 +206,27 @@ export default function AboutUs() {
           </motion.article>
         ))}
       </div>
-    </section>
+   </section>
+        
         {/* CTA */}
         <section id="contact" className="mt-10 bg-gradient-to-r from-primary to-primary/80 text-white rounded-2xl p-8 text-center">
-          <motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-2xl font-semibold">Ready to get started?</motion.h3>
-          <p className="mt-3 text-blue-100 max-w-xl mx-auto">Order trusted medicines, consult with our experts, and get safe delivery right away.</p>
+          <motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-2xl font-semibold">
+            Ready to get started?
+          </motion.h3>
+          <p className="mt-3 text-blue-100 max-w-xl mx-auto">
+            Order trusted medicines, consult with our experts, and get safe delivery right away.
+          </p>
           <div className="mt-6 flex justify-center gap-3">
             <a href="/#shop" className="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:opacity-95">Shop Now</a>
             <a href="https://wa.me/2348162738527" target="_blank" rel="noreferrer" className="border border-white/30 px-6 py-3 rounded-lg">Chat with Pharmacist</a>
           </div>
         </section>
-        {/* Footer CTA small */}
-        <footer className="mt-10 pb-20 text-center text-sm text-gray-500">
-          © {new Date().getFullYear()} ProseMediStore — Trusted online pharmacy
-        </footer>
         
       </main>
+
+      {/* Your Main Footer Component goes here! */}
+      <Footer />
+      
     </div>
   );
 }
