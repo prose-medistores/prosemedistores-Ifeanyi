@@ -43,7 +43,7 @@ export default function AboutUs() {
   const team = [
   { 
     name: "Dr. Precious Ohakosim", 
-    role: "Doctorr 1", 
+    role: "Doctor 1", 
     img: "/ify.jpg" 
   },
   { 
