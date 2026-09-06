@@ -64,7 +64,7 @@ export default function AboutUs() {
   },
   { 
     name: "Miss Oselumehse Beckley", 
-    role: "Customer Support", 
+    role: "Healthcare Assistant", 
     img: "/ose.jpg" 
   },
   { 

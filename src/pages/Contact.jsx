@@ -84,7 +84,7 @@ export default function ContactUs() {
               <div>
                 <p className="font-medium text-gray-800">Address</p>
                 <p className="text-gray-500">
-                  Plot 10, Crescent Drive, Garki, Abuja, Nigeria
+                  Administrative Office: 3C7J+8PW. Utako
                 </p>
               </div>
             </div>
