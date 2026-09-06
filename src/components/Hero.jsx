@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
-import { motion } from "framer-motion";
-import { useEffect, useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
 
 export default function Hero() {
 
@@ -16,6 +16,20 @@ export default function Hero() {
   const [text, setText] = useState("");
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  const [isConsultOpen, setIsConsultOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsConsultOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   useEffect(() => {
     const current = phrases[phraseIndex];
     let typingSpeed = isDeleting ? 60 : 100;
@@ -57,19 +71,76 @@ export default function Hero() {
             Safe, convenient and fast.
           </p>
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
+  <a
+    href="#shop"
+    className="inline-flex items-center justify-center px-5 py-3 bg-primary text-white rounded-lg font-medium shadow hover:shadow-md transition"
+  >
+    Shop Medicines
+  </a>
+
+  {/* Dropdown Container */}
+  <div className="relative inline-block text-left w-full sm:w-auto" ref={dropdownRef}>
+    <button
+      onClick={() => setIsConsultOpen(!isConsultOpen)}
+      className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-5 py-3 border border-primary rounded-lg font-medium text-primary hover:bg-primary hover:text-white transition"
+    >
+      Consult an Expert
+      {/* Animated Chevron Icon */}
+      <svg 
+        className={`w-4 h-4 transition-transform duration-200 ${isConsultOpen ? 'rotate-180' : ''}`} 
+        fill="none" 
+        stroke="currentColor" 
+        viewBox="0 0 24 24"
+      >
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+      </svg>
+    </button>
+
+    <AnimatePresence>
+      {isConsultOpen && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.2, ease: "easeOut" }}
+          className="absolute left-0 mt-2 w-full sm:w-64 bg-white border border-gray-100 rounded-xl shadow-xl z-50 overflow-hidden"
+        >
+          <div className="py-1">
+            {/* Doctor WhatsApp Link */}
             <a
-              href="#shop"
-              className="inline-flex items-center justify-center px-5 py-3 bg-primary text-white rounded-lg font-medium shadow hover:shadow-md transition"
+              href="https://wa.me/2348071964170?text=Hi,%20I%20would%20like%20to%20consult%20a%20Doctor%20in%20ProsemediStore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-3 hover:bg-slate-50 transition-colors border-b border-gray-50 group"
             >
-              Shop Medicines 
+              <span className="block font-medium text-gray-800 group-hover:text-primary transition-colors">
+                Speak with a Doctor
+              </span>
+              <span className="block text-xs text-gray-500 mt-0.5">
+                Get medical advice & prescriptions
+              </span>
             </a>
+
+            {/* Pharmacist WhatsApp Link */}
             <a
-              href="/register"
-              className="inline-flex items-center justify-center px-5 py-3 border border-primary rounded-lg font-medium text-primary hover:bg-primary hover:text-white transition"
+              href="https://wa.me/2349072096805?text=Hi,%20I%20would%20like%20to%20consult%20a%20Pharmacist%20in%20ProsemediStore"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block px-4 py-3 hover:bg-slate-50 transition-colors group"
             >
-              Consult a Pharmacist
+              <span className="block font-medium text-gray-800 group-hover:text-primary transition-colors">
+                Speak with a Pharmacist
+              </span>
+              <span className="block text-xs text-gray-500 mt-0.5">
+                Questions about your medication
+              </span>
             </a>
           </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  </div>
+</div>
           <ul className="mt-8 grid grid-cols-3 gap-3 max-w-md">
             {[
               { title: "Verified", desc: "Certified pharmacists" },

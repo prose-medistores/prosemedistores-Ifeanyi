@@ -37,10 +37,10 @@ export default function Footer() {
         <div>
           <h3 className="text-lg font-semibold mb-3">Contact</h3>
           <p className="text-sm text-gray-200">
-            📍 <span className="text-gray-100">Low cost Avenue, Abakaliki, Ebonyi State</span>
+            📍 <span className="text-gray-100">Administrative Office: 3C7J+8PW. Utako</span>
           </p>
-          <p className="mt-2 text-sm">📞 <a href="tel:+2348065503154" className="hover:text-[#50D6FE] transition">+234 806 550 3154</a></p>
-          <p className="mt-1 text-sm">💬 <a href="https://wa.me/2348065503154" className="hover:text-[#50D6FE] transition">Chat on WhatsApp</a></p>
+          <p className="mt-2 text-sm">📞 <a href="tel:+2349072096805" className="hover:text-[#50D6FE] transition">+234 907 209 6805</a></p>
+          <p className="mt-1 text-sm">💬 <a href="https://wa.me/2349072096805" className="hover:text-[#50D6FE] transition">Chat on WhatsApp</a></p>
           <p className="mt-1 text-sm">📧 <a href="mailto:support@medistore.com" className="hover:text-[#50D6FE] transition">support@prosemedistore.com</a></p>
         </div>
       </div>

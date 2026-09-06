@@ -41,10 +41,27 @@ export default function AboutUs() {
     },
   ];
   const team = [
-    { name: "Dr. Ifeanyi Okonkwo", role: "Chief Pharmacist", img: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=60" },
-    { name: "Adaeze Chukwu", role: "Head of Operations", img: "https://images.unsplash.com/photo-1545996124-1f7e0a4f3b4d?auto=format&fit=crop&w=400&q=60" },
-    { name: "Kola Adebayo", role: "CTO", img: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=400&q=60" },
-  ];
+  { 
+    name: "Dr. Precious Ohakosim", 
+    role: "Doctorr 1", 
+    img: "/ify.jpg" 
+  },
+  { 
+    name: "Glory Ekanem", // Update with full name
+    role: "Doctor 2", 
+    img: "/glory.jpg" 
+  },
+  { 
+    name: "Gift Seikakere", // Update with full name
+    role: "Doctor 3", 
+    img: "/gift.jpg" 
+  },
+  { 
+    name: "Charles", // Update with full name
+    role: "CTO", 
+    img: "/char2.jpg" 
+  },
+];
   return (
     <div className="min-h-screen bg-light text-gray-900">
       {/* HERO */}
@@ -138,18 +155,47 @@ export default function AboutUs() {
         </section>
         {/* Team */}
         <section className="mt-10 bg-white p-8 rounded-2xl shadow">
-          <motion.h3 initial={{ opacity: 0, y: 8 }} whileInView={{ opacity: 1, y: 0 }} className="text-2xl font-semibold text-gray-800">Meet the team</motion.h3>
-          <p className="mt-2 text-sm text-gray-500">A small, passionate group of pharmacists, engineers and operations experts.</p>
-          <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
-            {team.map((m, idx) => (
-              <motion.article key={m.name} initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: idx * 0.12 }} className="bg-white rounded-xl p-4 text-center shadow">
-                <img src={m.img} alt={m.name} className="mx-auto w-28 h-28 rounded-full object-cover border-4 border-white shadow-sm" />
-                <h4 className="mt-4 font-semibold text-gray-800">{m.name}</h4>
-                <p className="text-sm text-gray-500">{m.role}</p>
-              </motion.article>
-            ))}
-          </div>
-        </section>
+      <div className="max-w-2xl mx-auto text-center sm:text-left sm:mx-0">
+  <motion.h3 
+    initial={{ opacity: 0, y: 10 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }}
+    className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl"
+  >
+    The minds behind your care
+  </motion.h3>
+  
+  <motion.p 
+    initial={{ opacity: 0, y: 10 }} 
+    whileInView={{ opacity: 1, y: 0 }} 
+    viewport={{ once: true }}
+    transition={{ delay: 0.1 }}
+    className="mt-4 text-base leading-relaxed text-slate-600 sm:text-lg"
+  >
+    We’re a dedicated collective of pharmaceutical experts and technologists, united by a single mission: making your health and convenience our top priority.
+  </motion.p>
+</div>
+      
+      <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-6">
+        {team.map((m, idx) => (
+          <motion.article 
+            key={m.name} 
+            initial={{ opacity: 0, y: 12 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ delay: idx * 0.12 }} 
+            className="bg-white rounded-xl p-4 text-center shadow"
+          >
+            <img 
+              src={m.img} 
+              alt={m.name} 
+              className="mx-auto w-28 h-28 rounded-full object-cover border-4 border-white shadow-sm" 
+            />
+            <h4 className="mt-4 font-semibold text-gray-800">{m.name}</h4>
+            <p className="text-sm text-gray-500">{m.role}</p>
+          </motion.article>
+        ))}
+      </div>
+    </section>
         {/* CTA */}
         <section id="contact" className="mt-10 bg-gradient-to-r from-primary to-primary/80 text-white rounded-2xl p-8 text-center">
           <motion.h3 initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-2xl font-semibold">Ready to get started?</motion.h3>
