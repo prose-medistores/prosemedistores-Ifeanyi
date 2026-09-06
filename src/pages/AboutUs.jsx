@@ -47,12 +47,12 @@ export default function AboutUs() {
     img: "/ify.jpg" 
   },
   { 
-    name: "Glory Ekanem", // Update with full name
+    name: "Dr. Glory Ekanem", // Update with full name
     role: "Doctor 2", 
     img: "/glory.jpg" 
   },
   { 
-    name: "Gift Seikakere", // Update with full name
+    name: "Dr. Gift Seikakere", // Update with full name
     role: "Doctor 3", 
     img: "/gift.jpg" 
   },
