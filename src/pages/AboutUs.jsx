@@ -58,7 +58,7 @@ export default function AboutUs() {
     img: "/gift.jpg" 
   },
   { 
-    name: "Charles", 
+    name: "Charles Ademola", 
     role: "CTO", 
     img: "/char2.jpg" 
   },
