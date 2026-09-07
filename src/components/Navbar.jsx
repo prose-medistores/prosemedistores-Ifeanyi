@@ -137,76 +137,76 @@ export default function Navbar({ onCartOpen }) {
         </div>
       </div>
 
-      {/* Mobile Drawer */}
-<div
-  className={`fixed inset-y-0 right-0 h-[100dvh] w-[280px] bg-white shadow-2xl transform transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-50 flex flex-col ${
-    drawerOpen ? "translate-x-0" : "translate-x-full"
-  }`}
->
-  {/* Header */}
-  <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 flex-shrink-0">
-    <h2 className="text-lg font-bold text-primary tracking-tight">Menu</h2>
-    <button
-      onClick={toggleDrawer}
-      className="p-2 -mr-2 rounded-full text-primary hover:bg-slate-50 transition-colors"
-      aria-label="Close menu"
-    >
-      <X size={24} />
-    </button>
-  </div>
-  
-  {/* Body */}
-  <div className="flex-1 flex flex-col justify-between px-6 py-6 overflow-y-auto min-h-0">
-    <div className="flex flex-col space-y-5">
-      <Link
-        to="/about"
-        className="text-lg font-medium text-primary hover:text-primary transition-colors"
-        onClick={toggleDrawer}
+            {/* Mobile Drawer */}
+      <div
+        className={`fixed inset-y-0 right-0 h-[100dvh] w-[280px] bg-white shadow-2xl transform transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] z-50 flex flex-col md:hidden ${
+          drawerOpen ? "translate-x-0" : "translate-x-full"
+        }`}
       >
-        About Us
-      </Link>
-      <Link
-        to="/how"
-        className="text-lg font-medium text-primary hover:text-primary transition-colors"
-        onClick={toggleDrawer}
-      >
-        How to Install
-      </Link>
-      <Link
-        to="/contact"
-        className="text-lg font-medium text-primary hover:text-primary transition-colors"
-        onClick={toggleDrawer}
-      >
-        Contact
-      </Link>
-    </div>
-    
-    <div className="pt-6 border-t border-gray-100 flex flex-col space-y-3 flex-shrink-0 mt-6">
-      <Link
-        to="/login"
-        onClick={toggleDrawer}
-        className="w-full py-3 text-center text-primary font-medium rounded-xl hover:bg-slate-50 transition-colors border border-gray-100"
-      >
-        Log in
-      </Link>
-      <Link
-        to="/register"
-        onClick={toggleDrawer}
-        className="w-full py-3 text-center bg-slate-900 text-white font-medium rounded-xl hover:bg-slate-800 transition-colors shadow-sm"
-      >
-        Sign up
-      </Link>
-    </div>
-  </div>
-</div>
+        {/* Header */}
+        <div className="flex justify-between items-center px-6 py-5 border-b border-gray-100 flex-shrink-0">
+          <h2 className="text-lg font-bold text-primary tracking-tight">Menu</h2>
+          <button
+            onClick={toggleDrawer}
+            className="p-2 -mr-2 rounded-full text-primary hover:bg-slate-50 transition-colors"
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
+        </div>
+        
+        {/* Body */}
+        <div className="flex-1 flex flex-col justify-between px-6 py-6 overflow-y-auto min-h-0">
+          <div className="flex flex-col space-y-5">
+            <Link
+              to="/about"
+              className="text-lg font-medium text-primary hover:text-primary transition-colors"
+              onClick={toggleDrawer}
+            >
+              About Us
+            </Link>
+            <Link
+              to="/how"
+              className="text-lg font-medium text-primary hover:text-primary transition-colors"
+              onClick={toggleDrawer}
+            >
+              How to Install
+            </Link>
+            <Link
+              to="/contact"
+              className="text-lg font-medium text-primary hover:text-primary transition-colors"
+              onClick={toggleDrawer}
+            >
+              Contact
+            </Link>
+          </div>
+          
+          <div className="pt-6 border-t border-gray-100 flex flex-col space-y-3 flex-shrink-0 mt-6">
+            <Link
+              to="/login"
+              onClick={toggleDrawer}
+              className="w-full py-3 text-center text-primary font-medium rounded-xl hover:bg-slate-50 transition-colors border border-gray-100"
+            >
+              Log in
+            </Link>
+            <Link
+              to="/register"
+              onClick={toggleDrawer}
+              className="w-full py-3 text-center bg-slate-900 text-white font-medium rounded-xl hover:bg-slate-800 transition-colors shadow-sm"
+            >
+              Sign up
+            </Link>
+          </div>
+        </div>
+      </div>
 
-{/* Backdrop */}
-{drawerOpen && (
-  <div
-    className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 transition-opacity"
-    onClick={toggleDrawer}
-  ></div>
-)}
+      {/* Backdrop */}
+      {drawerOpen && (
+        <div
+          className="fixed inset-0 bg-slate-900/20 backdrop-blur-sm z-40 transition-opacity md:hidden"
+          onClick={toggleDrawer}
+        ></div>
+      )}
     </nav>
   );
 }
